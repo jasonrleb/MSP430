@@ -5,20 +5,10 @@
 #include <math.h>
 #include <stdint.h>
 
-void setupClk(void);
-void setTimB(void);
-void setupUART(void);
+void setClk(void);
+void setTimerB(void);
+void setUART(void);
 
-// Define global vars for interrupt
-volatile unsigned int rise;
-volatile unsigned int fall;
-volatile unsigned int freq = 0; // falling - rising
-volatile unsigned int mark = 0; // record if rising or falling
-volatile int currentFreq;
-
-/**
- * main.c
- */
 int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
@@ -27,7 +17,7 @@ int main(void)
     setClk();
 
     // Set timer B
-    setTimB();
+    setTimerB();
 
     // Set UART
     setUART();
@@ -37,7 +27,7 @@ int main(void)
     return 0;
 }
 
-void setupClk(void){
+void setClk(void){
 
     CSCTL0_H = CSKEY >> 8; // enables CS registers, can also do = 0xA5 (pg80 ug [ug = user guide])
 //    CSCTL1 &= ~DCORSEL; // DCORSEL set to 0 for low speed ug72
@@ -48,7 +38,7 @@ void setupClk(void){
 
 }
 
-void setTimB(void){
+void setTimerB(void){
 
     TB1CTL |= TBSSEL1 // select SMCLK source,
 //    TB1CTL |= MC0; // up mode (ug372) (for duty cycle)
@@ -73,7 +63,14 @@ void setTimB(void){
 
 }
 
-void setupUART(void){
-
+void setUART(void){
+    // Configure UART on P2.5 and 2.6
+    P2SEL0 &= ~(BIT5 + BIT6); // set to 00 ds77
+    P2SEL1 |= BIT5 + BIT6; // set to 11 ds77
+    UCA1CTLW0 = UCSSEL0; // 01b for ACLK (pg495 ug)
+    UCA1MCTLW = UCOS16 + UCBRF0 + 0x4900; // 9600 baud from 8MHz ug490; UCOS16 = oversampling enabled, UCBRF0 = modulation stage
+//    UCA0MCTLW = UCOS16 + UCBRF3 + UCBRF1 + 0xF700; // 57600 baud; UCBRFx = decimal 10 = 1010 hex = high low high low
+    UCA1BRW = 52; // ug490 and ug497, bit clock prescaler ***Why is this 52 for both 9600 and 57600 baud?
+    UCA1IE |= UCRXIE; // enable UART RX interrupt
 }
 
