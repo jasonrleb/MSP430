@@ -1,0 +1,10 @@
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csprojAssemblyReference.cache
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.Properties.Resources.resources
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csproj.GenerateResource.cache
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csproj.CoreCompileInputs.cache
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.Form1.resources
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.exe.config
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.exe
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.pdb
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.exe
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.pdb
