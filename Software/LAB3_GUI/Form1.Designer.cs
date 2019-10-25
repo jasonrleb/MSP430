@@ -69,6 +69,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btDCDir = new System.Windows.Forms.Button();
             this.cbDCEnable = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btDCMode = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -236,7 +238,6 @@
             // 
             // txtBaudRate
             // 
-            this.txtBaudRate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtBaudRate.Name = "txtBaudRate";
             this.txtBaudRate.Size = new System.Drawing.Size(92, 31);
             this.txtBaudRate.Text = "9600";
@@ -285,14 +286,14 @@
             this.btnConnect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(565, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(568, 31);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // cbStepperEnable
             // 
             this.cbStepperEnable.AutoSize = true;
-            this.cbStepperEnable.Location = new System.Drawing.Point(12, 494);
+            this.cbStepperEnable.Location = new System.Drawing.Point(14, 553);
             this.cbStepperEnable.Name = "cbStepperEnable";
             this.cbStepperEnable.Size = new System.Drawing.Size(177, 21);
             this.cbStepperEnable.TabIndex = 25;
@@ -302,7 +303,7 @@
             // 
             // btStepperDir
             // 
-            this.btStepperDir.Location = new System.Drawing.Point(14, 521);
+            this.btStepperDir.Location = new System.Drawing.Point(16, 580);
             this.btStepperDir.Name = "btStepperDir";
             this.btStepperDir.Size = new System.Drawing.Size(91, 37);
             this.btStepperDir.TabIndex = 26;
@@ -313,7 +314,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(111, 531);
+            this.label2.Location = new System.Drawing.Point(113, 590);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 17);
             this.label2.TabIndex = 27;
@@ -321,7 +322,7 @@
             // 
             // btStepperCommand
             // 
-            this.btStepperCommand.Location = new System.Drawing.Point(12, 641);
+            this.btStepperCommand.Location = new System.Drawing.Point(14, 700);
             this.btStepperCommand.Name = "btStepperCommand";
             this.btStepperCommand.Size = new System.Drawing.Size(396, 36);
             this.btStepperCommand.TabIndex = 28;
@@ -331,7 +332,7 @@
             // 
             // btStepperMode
             // 
-            this.btStepperMode.Location = new System.Drawing.Point(14, 564);
+            this.btStepperMode.Location = new System.Drawing.Point(16, 623);
             this.btStepperMode.Name = "btStepperMode";
             this.btStepperMode.Size = new System.Drawing.Size(91, 39);
             this.btStepperMode.TabIndex = 29;
@@ -342,7 +343,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(111, 575);
+            this.label3.Location = new System.Drawing.Point(113, 634);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 17);
             this.label3.TabIndex = 30;
@@ -350,7 +351,7 @@
             // 
             // tbStepperSpeed
             // 
-            this.tbStepperSpeed.Location = new System.Drawing.Point(14, 610);
+            this.tbStepperSpeed.Location = new System.Drawing.Point(16, 669);
             this.tbStepperSpeed.Name = "tbStepperSpeed";
             this.tbStepperSpeed.Size = new System.Drawing.Size(91, 22);
             this.tbStepperSpeed.TabIndex = 31;
@@ -358,7 +359,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(111, 613);
+            this.label4.Location = new System.Drawing.Point(113, 672);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(148, 17);
             this.label4.TabIndex = 32;
@@ -367,7 +368,7 @@
             // cbStepperRev
             // 
             this.cbStepperRev.AutoSize = true;
-            this.cbStepperRev.Location = new System.Drawing.Point(266, 610);
+            this.cbStepperRev.Location = new System.Drawing.Point(268, 669);
             this.cbStepperRev.Name = "cbStepperRev";
             this.cbStepperRev.Size = new System.Drawing.Size(69, 21);
             this.cbStepperRev.TabIndex = 33;
@@ -378,7 +379,7 @@
             // cbStepperSteps
             // 
             this.cbStepperSteps.AutoSize = true;
-            this.cbStepperSteps.Location = new System.Drawing.Point(341, 611);
+            this.cbStepperSteps.Location = new System.Drawing.Point(343, 670);
             this.cbStepperSteps.Name = "cbStepperSteps";
             this.cbStepperSteps.Size = new System.Drawing.Size(83, 21);
             this.cbStepperSteps.TabIndex = 34;
@@ -389,22 +390,22 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(111, 409);
+            this.label5.Location = new System.Drawing.Point(110, 454);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 17);
+            this.label5.Size = new System.Drawing.Size(98, 17);
             this.label5.TabIndex = 42;
-            this.label5.Text = "PWM Value [?]";
+            this.label5.Text = "PWM Duty [%]";
             // 
             // tbDCPWM
             // 
-            this.tbDCPWM.Location = new System.Drawing.Point(14, 406);
+            this.tbDCPWM.Location = new System.Drawing.Point(13, 451);
             this.tbDCPWM.Name = "tbDCPWM";
             this.tbDCPWM.Size = new System.Drawing.Size(91, 22);
             this.tbDCPWM.TabIndex = 41;
             // 
             // btDCCommand
             // 
-            this.btDCCommand.Location = new System.Drawing.Point(12, 437);
+            this.btDCCommand.Location = new System.Drawing.Point(11, 482);
             this.btDCCommand.Name = "btDCCommand";
             this.btDCCommand.Size = new System.Drawing.Size(396, 36);
             this.btDCCommand.TabIndex = 38;
@@ -442,11 +443,32 @@
             this.cbDCEnable.UseVisualStyleBackColor = true;
             this.cbDCEnable.CheckedChanged += new System.EventHandler(this.CbDCEnable_CheckedChanged);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(112, 416);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(128, 17);
+            this.label6.TabIndex = 44;
+            this.label6.Text = "Toggle PWM Mode";
+            // 
+            // btDCMode
+            // 
+            this.btDCMode.Location = new System.Drawing.Point(15, 406);
+            this.btDCMode.Name = "btDCMode";
+            this.btDCMode.Size = new System.Drawing.Size(91, 37);
+            this.btDCMode.TabIndex = 43;
+            this.btDCMode.Text = "Pot";
+            this.btDCMode.UseVisualStyleBackColor = true;
+            this.btDCMode.Click += new System.EventHandler(this.BtDCMode_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 688);
+            this.ClientSize = new System.Drawing.Size(568, 835);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btDCMode);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbDCPWM);
             this.Controls.Add(this.btDCCommand);
@@ -530,6 +552,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btDCDir;
         private System.Windows.Forms.CheckBox cbDCEnable;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btDCMode;
     }
 }
 
