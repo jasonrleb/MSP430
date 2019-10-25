@@ -29,15 +29,6 @@ __interrupt void USCI_A1_ISR(void)
     RxByte = UCA1RXBUF; // get val from RX buffer
 }
 
-#pragma vector = ADC10_VECTOR
-__interrupt void ADC10_ISR(void) {
-   ADC10CTL0 &= ~ADC10ENC;
-   ADC10MCTL0 = ADC10SREF_1 + ADC10INCH_12;
-   temperature = ADC10MEM0 >> 2;
-   temperature = temperature - 85;
-   ADC10CTL0 |= ADC10ENC | ADC10SC;
-}
-
 void setClk() {
     CSCTL0_H = CSKEY >> 8; // enables CS registers, can also do = 0xA5 (pg80 ug [ug = user guide])
     CSCTL1 &= ~DCORSEL; // DCORSEL set to 0 ug72
