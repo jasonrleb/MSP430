@@ -39,20 +39,18 @@ void setClk(void){
 }
 
 void setTimerB(void){
-
-    TB1CTL |= TBSSEL1 // select SMCLK source,
-//    TB1CTL |= MC0; // up mode (ug372) (for duty cycle)
-    TB1CTL |= MC1; // continuous mode (ug372)
+    TB0CTL |= TBSSEL1 // select SMCLK source,
+//    TB0CTL |= MC0; // up mode (ug372) (for duty cycle)
+    TB0CTL |= MC1; // continuous mode (ug372)
     CNTL = 0x0000; //count value (TB1R) maximum = 16bit
 
     // Set mode (ug375, ug366 diagrams)
-    TB1CCTL1 = OUTMOD_3; // set capture/compare register to set/reset (ug375)
-    TB1CCTL2 = OUTMOD_3; // set capture/compare register to set/reset (ug375)
+    TB0CCTL1 = OUTMOD_3; // set capture/compare register to set/reset (ug375)
+    TB0CCTL2 = OUTMOD_3; // set capture/compare register to set/reset (ug375)
 
     // Set 500Hz waves (draw up graph to show)
     TB1CCR0 = 2000; // = (CLK/divider)/target = (8E6/8)/500 aka 4x divisions
-    TB1CCR1 = 1000; // 50% duty cycle, TB1.1 50%
-    TB1CCR2 = 1500; // 25% duty cycle, TB1.2 25%
+    TB1CCR1 = 1000; // 50% duty cycle
 
     // Set P3.4 and P3.5 to be Timer B output and LED output (P1 only has Timer A and no LED); um14, 17
     // BIT4 is TB1.1, BIT5 is TB1.2, should be dimmer
