@@ -337,7 +337,7 @@ namespace LAB3_GUI
             //Set Speed byte
             int speed = 0;
             if (btStepperMode.Text == "Constant") {
-                Int32.TryParse(tbDCPWM.Text, out speed); //converts speed input to integer
+                Int32.TryParse(tbStepperSpeed.Text, out speed); //converts speed input to integer
                 TxBytes[5] = (byte)(speed);
             }
 
@@ -354,11 +354,11 @@ namespace LAB3_GUI
                             tbStepperSpeed.Text = "";
                         }
 
-                    //ERROR if no units selected
-                    if (!cbStepperRev.Checked && !cbStepperSteps.Checked)
-                    {
-                        MessageBox.Show("No units selected...", "ERROR", 0);
-                    }
+                        //ERROR if no units selected
+                        if (!cbStepperRev.Checked && !cbStepperSteps.Checked)
+                        {
+                            MessageBox.Show("No units selected...", "ERROR", 0);
+                        }
                 }
 
                     //Send data
@@ -369,16 +369,17 @@ namespace LAB3_GUI
                             if (serialPort1.IsOpen) //ERROR Check Serial Port Open
                             {
                                 int i;
-                                for (i = 0; i < 6; i++) //Send bytes
+                                for (i = 0; i < 7; i++) //Send bytes
                                 {
                                     serialPort1.Write(TxBytes, i, 1);
-                                }
+                                    txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
+                            }
                             }
                             else
-                            {
-                                MessageBox.Show("No device connected...", "ERROR", 0);
-                            }
+                        {
+                            MessageBox.Show("No device connected...", "ERROR", 0);
                         }
+                    }
                         catch (Exception Ex)
                         {
                             MessageBox.Show(Ex.Message);
@@ -483,9 +484,10 @@ namespace LAB3_GUI
                         if (serialPort1.IsOpen)//Serial port check if open
                         {
                             int i;
-                            for (i = 0; i < 6; i++) //Send bytes
+                            for (i = 0; i < 7; i++) //Send bytes
                             {
                                 serialPort1.Write(TxBytes, i, 1);
+                                txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
                             }
                         }
                         else
@@ -506,16 +508,26 @@ namespace LAB3_GUI
             }
         }
 
+
         //DC Mode Select
         private void BtDCMode_Click(object sender, EventArgs e)
         {
             if (btDCMode.Text == "Pot")
             {
                 btDCMode.Text = "Duty";
+                return;
             }
-            else
+
+            if(btDCMode.Text == "Duty")
+            {
+                btDCMode.Text = "Step";
+                return;
+            }
+
+            if(btDCMode.Text == "Step")
             {
                 btDCMode.Text = "Pot";
+                return;
             }
         }
     }
