@@ -295,41 +295,96 @@ namespace LAB3_GUI
         //Stepper Output
         private void BtStepperCommand_Click(object sender, EventArgs e)
         {
-            int result = 0;
-            Int32.TryParse(tbStepperSpeed.Text, out result); //converts speed input to integer
+            byte[] TxBytes = new Byte[7]; //1 Start byte, 1 Dir byte, 1 Mode byte, 1 Speed byte
 
-            if (cbStepperEnable.Checked)
+            //Set start & end byte
+            TxBytes[0] = 255;
+            TxBytes[6] = 254;
+
+            //Sets Motor Byte
+            TxBytes[1] = 1; //Stepper Mode [1]
+
+            //Set mode byte
+            if (btStepperMode.Text == "Step")
             {
-                if (btStepperMode.Text == "Constant")
-                {
+                TxBytes[2] = 0;
+            }
+            if (btStepperMode.Text == "Constant")
+            {
+                TxBytes[2] = 1;
+            }
+
+            //Set direction byte
+            if (btStepperDir.Text == "CW")
+            {
+                TxBytes[3] = 0;
+            }
+            if (btStepperDir.Text == "CCW")
+            {
+                TxBytes[3] = 1;
+            }
+
+            //Set speed units
+            if (cbStepperRev.Checked)
+            {
+                TxBytes[4] = 0; //Rev/s [0]
+            }
+            if (cbStepperSteps.Checked)
+            {
+                TxBytes[4] = 1; //Steps/s [1]
+            }
+
+            //Set Speed byte
+            int speed = 0;
+            if (btStepperMode.Text == "Constant") {
+                Int32.TryParse(tbStepperSpeed.Text, out speed); //converts speed input to integer
+                TxBytes[5] = (byte)(speed);
+            }
+
+            //Transmit bytes
+            if (cbStepperEnable.Checked) //ERROR: Stepper mode enable check
+            {
                     //ERROR Checking
-                    if (result <= 0 || (!cbStepperRev.Checked && !cbStepperSteps.Checked))
+                    if (btStepperMode.Text == "Constant" && (speed <= 0 || (!cbStepperRev.Checked && !cbStepperSteps.Checked)))
                     {
                         //ERROR if non-integer input
-                        if (result <= 0)
+                        if (speed <= 0)
                         {
-                            MessageBox.Show("Invalid speed input, enter integer value...", "ERROR", 0);
+                            MessageBox.Show("Invalid speed input, enter integer value from 0-255", "ERROR", 0);
                             tbStepperSpeed.Text = "";
                         }
 
                         //ERROR if no units selected
-                        if(!cbStepperRev.Checked && !cbStepperSteps.Checked)
+                        if (!cbStepperRev.Checked && !cbStepperSteps.Checked)
                         {
                             MessageBox.Show("No units selected...", "ERROR", 0);
                         }
-                    }
+                }
 
                     //Send data
                     else
-                    {
-                        //Insert code to send command via uart
+                    {                  
+                        try
+                        {
+                            if (serialPort1.IsOpen) //ERROR Check Serial Port Open
+                            {
+                                int i;
+                                for (i = 0; i < 7; i++) //Send bytes
+                                {
+                                    serialPort1.Write(TxBytes, i, 1);
+                                    txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
+                            }
+                            }
+                            else
+                        {
+                            MessageBox.Show("No device connected...", "ERROR", 0);
+                        }
                     }
-                }
-
-                if (btStepperMode.Text == "Step")
-                {
-                    //Insert code to send command via uart
-                }
+                        catch (Exception Ex)
+                        {
+                            MessageBox.Show(Ex.Message);
+                        }
+                    }
             }
             else
             {
@@ -374,13 +429,105 @@ namespace LAB3_GUI
         //DC Motor Output
         private void BtDCCommand_Click(object sender, EventArgs e)
         {
-            if (cbDCEnable.Checked)
+            byte[] TxBytes = new Byte[6]; //1 Start byte, 1 Dir byte, 2 PWM bytes (16bit)
+
+            //Set start & end bytes
+            TxBytes[0] = 255;
+            TxBytes[0] = 254;
+
+            //Sets Motor Byte
+            TxBytes[1] = 0; //DC Mode [0]
+
+            //Set mode byte
+            if (btDCMode.Text == "Pot") //Add error check for mode selection
             {
-                ////Insert code to send command via uart
+                TxBytes[2] = 0;
+            }
+            if (btDCMode.Text == "Duty")
+            {
+                TxBytes[2] = 1;
+            }
+
+            //Set direction byte
+            if (btStepperDir.Text == "CW")
+            {
+                TxBytes[3] = 0;
+            }
+            if (btStepperDir.Text == "CCW")
+            {
+                TxBytes[3] = 1;
+            }
+
+            //Set PWM Duty byte
+            int duty = 0;
+            Int32.TryParse(tbDCPWM.Text, out duty); //converts speed input to integer
+            int pwm = 65536 * (duty / 100); //gets appropriate count value based on PWM duty
+
+            TxBytes[5] = (byte)(pwm);
+            TxBytes[4] = (byte)(pwm >> 8);
+
+            //Transmit bytes
+            if (cbDCEnable.Checked){  //ERROR DC Motor enable check
+
+                //ERROR: Check mode and appropriate input
+                if (btDCMode.Text == "Duty" && (duty >= 100 || duty <= 0)) //ERROR Invalid input check
+                {
+                   MessageBox.Show("Invalid PWM Duty input, enter integer value from 0-100...", "ERROR", 0);
+                   tbDCPWM.Text = "";
+                }
+
+                //Transmit Data
+                else
+                {
+                    try
+                    {
+                        if (serialPort1.IsOpen)//Serial port check if open
+                        {
+                            int i;
+                            for (i = 0; i < 7; i++) //Send bytes
+                            {
+                                serialPort1.Write(TxBytes, i, 1);
+                                txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No device connected...", "ERROR", 0);
+                        }
+                    }
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show(Ex.Message);
+                    }
+                }
+
             }
             else
             {
                 MessageBox.Show("DC Motor Control not enabled...", "ERROR", 0);
+            }
+        }
+
+
+        //DC Mode Select
+        private void BtDCMode_Click(object sender, EventArgs e)
+        {
+            if (btDCMode.Text == "Pot")
+            {
+                btDCMode.Text = "Duty";
+                return;
+            }
+
+            if(btDCMode.Text == "Duty")
+            {
+                btDCMode.Text = "Step";
+                return;
+            }
+
+            if(btDCMode.Text == "Step")
+            {
+                btDCMode.Text = "Pot";
+                return;
             }
         }
     }
