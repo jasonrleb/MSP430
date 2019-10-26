@@ -18,7 +18,7 @@ namespace LAB3_GUI
     {
 
         public int numberOfDataPoints = 0;
-        
+
         //PLOT Variables
         int plotLimit = 20;
 
@@ -41,7 +41,7 @@ namespace LAB3_GUI
                 cmbComPort.Text = "No Ports Found!";
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load_1(object sender, EventArgs e)
         {
             lblIncomingDataRate.Visible = false;
             chkShowResponse.Checked = true;
@@ -257,10 +257,10 @@ namespace LAB3_GUI
                         txtRawSerial.AppendText(currentByte.ToString() + ", ");
                     }));
 
-            if (currentByte == 255)
-            {
+                if (currentByte == 255)
+                {
 
-            }
+                }
 
             }
 
@@ -272,7 +272,7 @@ namespace LAB3_GUI
         //Sets stepper direction: CW / CCW
         private void BtStepperDir_Click(object sender, EventArgs e)
         {
-            if(btStepperDir.Text == "CW")
+            if (btStepperDir.Text == "CW")
             {
                 btStepperDir.Text = "CCW";
             }
@@ -360,7 +360,8 @@ namespace LAB3_GUI
 
             //Set Speed byte
             int speed = 0;
-            if (btStepperMode.Text == "Constant") {
+            if (btStepperMode.Text == "Constant")
+            {
                 Int32.TryParse(tbStepperSpeed.Text, out speed); //converts speed input to integer
                 TxBytes[5] = (byte)(speed);
             }
@@ -368,53 +369,53 @@ namespace LAB3_GUI
             //Transmit bytes
             if (cbStepperEnable.Checked) //ERROR: Stepper mode enable check
             {
-                    //ERROR Checking
-                    if (btStepperMode.Text == "Constant" && (speed <= 0 || (!cbStepperRev.Checked && !cbStepperSteps.Checked)))
+                //ERROR Checking
+                if (btStepperMode.Text == "Constant" && (speed <= 0 || (!cbStepperRev.Checked && !cbStepperSteps.Checked)))
+                {
+                    //ERROR if non-integer input
+                    if (speed <= 0)
                     {
-                        //ERROR if non-integer input
-                        if (speed <= 0)
-                        {
-                            MessageBox.Show("Invalid speed input, enter integer value from 0-255", "ERROR", 0);
-                            tbStepperSpeed.Text = "";
-                        }
+                        MessageBox.Show("Invalid speed input, enter integer value from 0-255", "ERROR", 0);
+                        tbStepperSpeed.Text = "";
+                    }
 
-                        //ERROR if no units selected
-                        if (!cbStepperRev.Checked && !cbStepperSteps.Checked)
-                        {
-                            MessageBox.Show("No units selected...", "ERROR", 0);
-                        }
+                    //ERROR if no units selected
+                    if (!cbStepperRev.Checked && !cbStepperSteps.Checked)
+                    {
+                        MessageBox.Show("No units selected...", "ERROR", 0);
+                    }
                 }
 
-                    //Send data
-                    else
-                    {                  
-                        try
+                //Send data
+                else
+                {
+                    try
+                    {
+                        if (serialPort1.IsOpen) //ERROR Check Serial Port Open
                         {
-                            if (serialPort1.IsOpen) //ERROR Check Serial Port Open
+                            int i;
+                            for (i = 0; i < 7; i++) //Send bytes
                             {
-                                int i;
-                                for (i = 0; i < 7; i++) //Send bytes
-                                {
-                                    serialPort1.Write(TxBytes, i, 1);
-                                    txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
+                                serialPort1.Write(TxBytes, i, 1);
+                                txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
                             }
-                            }
-                            else
+                        }
+                        else
                         {
                             MessageBox.Show("No device connected...", "ERROR", 0);
                         }
                     }
-                        catch (Exception Ex)
-                        {
-                            MessageBox.Show(Ex.Message);
-                        }
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show(Ex.Message);
                     }
+                }
             }
             else
             {
-                MessageBox.Show("Stepper Control not enabled...", "ERROR",0);
+                MessageBox.Show("Stepper Control not enabled...", "ERROR", 0);
             }
-            
+
         }
 
 
@@ -491,13 +492,14 @@ namespace LAB3_GUI
             TxBytes[4] = (byte)(pwm >> 8);
 
             //Transmit bytes
-            if (cbDCEnable.Checked){  //ERROR DC Motor enable check
+            if (cbDCEnable.Checked)
+            {  //ERROR DC Motor enable check
 
                 //ERROR: Check mode and appropriate input
                 if (btDCMode.Text == "Duty" && (duty >= 100 || duty <= 0)) //ERROR Invalid input check
                 {
-                   MessageBox.Show("Invalid PWM Duty input, enter integer value from 0-100...", "ERROR", 0);
-                   tbDCPWM.Text = "";
+                    MessageBox.Show("Invalid PWM Duty input, enter integer value from 0-100...", "ERROR", 0);
+                    tbDCPWM.Text = "";
                 }
 
                 //Transmit Data
@@ -542,13 +544,13 @@ namespace LAB3_GUI
                 return;
             }
 
-            if(btDCMode.Text == "Duty")
+            if (btDCMode.Text == "Duty")
             {
                 btDCMode.Text = "Step";
                 return;
             }
 
-            if(btDCMode.Text == "Step")
+            if (btDCMode.Text == "Step")
             {
                 btDCMode.Text = "Pot";
                 return;
@@ -558,26 +560,28 @@ namespace LAB3_GUI
         //TIMER: Data Recieve & Buffer
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
-            {
+            //if (serialPort1.IsOpen)
+            //{
 
-                //DATA: Encoder & Plots
-                while (encoderQueue.Count != 0)
-                {
-                    encoderQueue.TryDequeue(out X);
-                    if (X != 0)
-                    {
-                        tbXAxis.Text = X.ToString();
-                        ctData.Series["X Accel"].Points.Add(X);
-                    }
-                }
+            //    //DATA: Encoder & Plots
+            //    while (encoderQueue.Count != 0)
+            //    {
+            //        encoderQueue.TryDequeue(out X);
+            //        if (X != 0)
+            //        {
+            //            tbXAxis.Text = X.ToString();
+            //            ctData.Series["X Accel"].Points.Add(X);
+            //        }
+            //    }
 
-                    //PLOT CONTROL
-                    if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
-                    {
-                        ctData.Series["RPM"].Points.RemoveAt(0);
-                        ctData.Series["Hz"].Points.RemoveAt(0);
-                    }
-                }
+            //    //PLOT CONTROL
+            //    if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
+            //    {
+            //        ctData.Series["RPM"].Points.RemoveAt(0);
+            //        ctData.Series["Hz"].Points.RemoveAt(0);
+            //    }
+            //}
+        }
+
     }
 }

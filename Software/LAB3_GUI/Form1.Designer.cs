@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.autoReconnectBox = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransmitToComPort = new System.Windows.Forms.Button();
@@ -94,7 +94,7 @@
             this.autoReconnectBox.AutoSize = true;
             this.autoReconnectBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.autoReconnectBox.Location = new System.Drawing.Point(409, 54);
-            this.autoReconnectBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.autoReconnectBox.Margin = new System.Windows.Forms.Padding(4);
             this.autoReconnectBox.Name = "autoReconnectBox";
             this.autoReconnectBox.Size = new System.Drawing.Size(131, 21);
             this.autoReconnectBox.TabIndex = 23;
@@ -109,7 +109,7 @@
             // 
             this.btnTransmitToComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnTransmitToComPort.Location = new System.Drawing.Point(9, 160);
-            this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(4);
             this.btnTransmitToComPort.Name = "btnTransmitToComPort";
             this.btnTransmitToComPort.Size = new System.Drawing.Size(539, 43);
             this.btnTransmitToComPort.TabIndex = 22;
@@ -120,7 +120,7 @@
             // 
             this.txtByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte5.Location = new System.Drawing.Point(447, 119);
-            this.txtByte5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte5.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte5.Name = "txtByte5";
             this.txtByte5.Size = new System.Drawing.Size(100, 30);
             this.txtByte5.TabIndex = 20;
@@ -129,7 +129,7 @@
             // 
             this.txtByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte4.Location = new System.Drawing.Point(337, 119);
-            this.txtByte4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte4.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(100, 30);
             this.txtByte4.TabIndex = 19;
@@ -138,7 +138,7 @@
             // 
             this.txtByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte3.Location = new System.Drawing.Point(228, 119);
-            this.txtByte3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte3.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(100, 30);
             this.txtByte3.TabIndex = 18;
@@ -147,7 +147,7 @@
             // 
             this.txtByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte2.Location = new System.Drawing.Point(119, 119);
-            this.txtByte2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte2.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(100, 30);
             this.txtByte2.TabIndex = 17;
@@ -156,7 +156,7 @@
             // 
             this.txtByte1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte1.Location = new System.Drawing.Point(9, 119);
-            this.txtByte1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtByte1.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(100, 30);
             this.txtByte1.TabIndex = 16;
@@ -166,7 +166,7 @@
             this.chkByte3.AutoSize = true;
             this.chkByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte3.Location = new System.Drawing.Point(228, 86);
-            this.chkByte3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkByte3.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte3.Name = "chkByte3";
             this.chkByte3.Size = new System.Drawing.Size(78, 21);
             this.chkByte3.TabIndex = 15;
@@ -178,7 +178,7 @@
             this.chkByte2.AutoSize = true;
             this.chkByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte2.Location = new System.Drawing.Point(119, 86);
-            this.chkByte2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkByte2.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte2.Name = "chkByte2";
             this.chkByte2.Size = new System.Drawing.Size(78, 21);
             this.chkByte2.TabIndex = 14;
@@ -190,7 +190,7 @@
             this.chkByte1.AutoSize = true;
             this.chkByte1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte1.Location = new System.Drawing.Point(9, 86);
-            this.chkByte1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkByte1.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte1.Name = "chkByte1";
             this.chkByte1.Size = new System.Drawing.Size(78, 21);
             this.chkByte1.TabIndex = 13;
@@ -213,7 +213,7 @@
             this.chkShowResponse.AutoSize = true;
             this.chkShowResponse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkShowResponse.Location = new System.Drawing.Point(177, 54);
-            this.chkShowResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkShowResponse.Margin = new System.Windows.Forms.Padding(4);
             this.chkShowResponse.Name = "chkShowResponse";
             this.chkShowResponse.Size = new System.Drawing.Size(188, 21);
             this.chkShowResponse.TabIndex = 12;
@@ -224,7 +224,7 @@
             // 
             this.txtRawSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRawSerial.Location = new System.Drawing.Point(12, 434);
-            this.txtRawSerial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRawSerial.Margin = new System.Windows.Forms.Padding(4);
             this.txtRawSerial.Multiline = true;
             this.txtRawSerial.Name = "txtRawSerial";
             this.txtRawSerial.Size = new System.Drawing.Size(1081, 75);
@@ -244,7 +244,7 @@
             this.chkByte4.AutoSize = true;
             this.chkByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte4.Location = new System.Drawing.Point(337, 86);
-            this.chkByte4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkByte4.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte4.Name = "chkByte4";
             this.chkByte4.Size = new System.Drawing.Size(78, 21);
             this.chkByte4.TabIndex = 11;
@@ -263,7 +263,7 @@
             this.chkByte5.AutoSize = true;
             this.chkByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte5.Location = new System.Drawing.Point(447, 86);
-            this.chkByte5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkByte5.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte5.Name = "chkByte5";
             this.chkByte5.Size = new System.Drawing.Size(78, 21);
             this.chkByte5.TabIndex = 10;
@@ -492,30 +492,30 @@
             // 
             // ctData
             // 
-            chartArea1.Name = "ChartArea1";
-            this.ctData.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            legend1.Position.Auto = false;
-            legend1.Position.Height = 12.70903F;
-            legend1.Position.Width = 25.41806F;
-            legend1.Position.X = 20F;
-            legend1.Position.Y = 3F;
-            this.ctData.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.ctData.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            legend3.Position.Auto = false;
+            legend3.Position.Height = 12.70903F;
+            legend3.Position.Width = 25.41806F;
+            legend3.Position.X = 20F;
+            legend3.Position.Y = 3F;
+            this.ctData.Legends.Add(legend3);
             this.ctData.Location = new System.Drawing.Point(577, 34);
-            this.ctData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ctData.Margin = new System.Windows.Forms.Padding(4);
             this.ctData.Name = "ctData";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.LegendText = "[rpm]";
-            series1.Name = "RPM";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.LegendText = "[Hz]";
-            series2.Name = "Hz";
-            this.ctData.Series.Add(series1);
-            this.ctData.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Legend = "Legend1";
+            series5.LegendText = "[rpm]";
+            series5.Name = "RPM";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Legend = "Legend1";
+            series6.LegendText = "[Hz]";
+            series6.Name = "Hz";
+            this.ctData.Series.Add(series5);
+            this.ctData.Series.Add(series6);
             this.ctData.Size = new System.Drawing.Size(517, 300);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
@@ -523,7 +523,7 @@
             // tbPosition
             // 
             this.tbPosition.Location = new System.Drawing.Point(957, 351);
-            this.tbPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPosition.Margin = new System.Windows.Forms.Padding(4);
             this.tbPosition.Name = "tbPosition";
             this.tbPosition.Size = new System.Drawing.Size(60, 22);
             this.tbPosition.TabIndex = 46;
@@ -531,7 +531,7 @@
             // tbVelocity
             // 
             this.tbVelocity.Location = new System.Drawing.Point(957, 383);
-            this.tbVelocity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbVelocity.Margin = new System.Windows.Forms.Padding(4);
             this.tbVelocity.Name = "tbVelocity";
             this.tbVelocity.Size = new System.Drawing.Size(60, 22);
             this.tbVelocity.TabIndex = 47;
@@ -653,6 +653,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctData)).EndInit();
