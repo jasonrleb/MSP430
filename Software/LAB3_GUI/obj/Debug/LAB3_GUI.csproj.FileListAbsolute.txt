@@ -8,3 +8,8 @@ C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.pdb
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.exe
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.pdb
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\CsvHelper.dll
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\System.ValueTuple.dll
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\CsvHelper.xml
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\System.ValueTuple.xml
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\obj\Debug\LAB3_GUI.csproj.CopyComplete

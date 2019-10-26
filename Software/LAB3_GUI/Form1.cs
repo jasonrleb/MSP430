@@ -5,13 +5,24 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Media;
+using System.Threading.Tasks;
 
 namespace LAB3_GUI
 {
     public partial class Form1 : Form
     {
+
         public int numberOfDataPoints = 0;
+        
+        //PLOT Variables
+        int plotLimit = 20;
+
+        ConcurrentQueue<int> encoderQueue = new ConcurrentQueue<int>();
 
         public Form1()
         {
@@ -84,20 +95,7 @@ namespace LAB3_GUI
             }
         }
 
-        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            while (serialPort1.IsOpen && serialPort1.BytesToRead != 0)
-            {
-                int currentByte = serialPort1.ReadByte();
-                numberOfDataPoints++;
-                if (chkShowResponse.Checked)
-                    this.BeginInvoke(new EventHandler(delegate
-                    {
-                        txtRawSerial.AppendText(currentByte.ToString() + ", ");
-                    }));
-            }
 
-        }
 
         private void chkByte1_CheckedChanged(object sender, EventArgs e)
         {
@@ -244,6 +242,32 @@ namespace LAB3_GUI
 
         //NEW CODE ADDED HERE DOWN --------------------------------------------------------
 
+
+        //Receive Data
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            int currentByte = 0;
+            while (serialPort1.IsOpen && serialPort1.BytesToRead != 0)
+            {
+                currentByte = serialPort1.ReadByte();
+                numberOfDataPoints++;
+                if (chkShowResponse.Checked)
+                    this.BeginInvoke(new EventHandler(delegate
+                    {
+                        txtRawSerial.AppendText(currentByte.ToString() + ", ");
+                    }));
+
+            if (currentByte == 255)
+            {
+
+            }
+
+            }
+
+
+
+
+        }
 
         //Sets stepper direction: CW / CCW
         private void BtStepperDir_Click(object sender, EventArgs e)
@@ -530,5 +554,30 @@ namespace LAB3_GUI
                 return;
             }
         }
+
+        //TIMER: Data Recieve & Buffer
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+
+                //DATA: Encoder & Plots
+                while (encoderQueue.Count != 0)
+                {
+                    encoderQueue.TryDequeue(out X);
+                    if (X != 0)
+                    {
+                        tbXAxis.Text = X.ToString();
+                        ctData.Series["X Accel"].Points.Add(X);
+                    }
+                }
+
+                    //PLOT CONTROL
+                    if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
+                    {
+                        ctData.Series["RPM"].Points.RemoveAt(0);
+                        ctData.Series["Hz"].Points.RemoveAt(0);
+                    }
+                }
     }
 }
