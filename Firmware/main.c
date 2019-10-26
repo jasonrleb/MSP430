@@ -1,6 +1,53 @@
 #include <msp430.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+#include <stdint.h>
 #define RXD BIT5
 #define TXD BIT6
+
+struct Queue {
+    int front, rear, size;
+    unsigned capacity;
+    char* array;
+};
+
+// Create queue of given capacity with initial size 0
+struct Queue* CreateQueue(unsigned capacity) {
+    struct Queue* theQueue = (struct Queue*) malloc(sizeof(struct Queue));
+    theQueue->capacity = capacity;
+    theQueue->front = theQueue->size = 0;
+    theQueue->rear = capacity - 1; // rear of queue
+    theQueue->array = (char*)malloc(theQueue->capacity * sizeof(char));
+
+    return theQueue;
+}
+
+int IsFull(struct Queue* theQueue) {
+    return (theQueue->size == theQueue->capacity);
+}
+
+int IsEmpty(struct Queue* theQueue) {
+    return(theQueue->size == 0);
+}
+
+void Enqueue(struct Queue* theQueue, char item) {
+    if (IsFull(theQueue))
+        return;
+    theQueue->rear = (theQueue->rear + 1) % theQueue->capacity;
+    theQueue->array[theQueue->rear] = item;
+    theQueue->size = theQueue->size + 1;
+}
+
+char Dequeue(struct Queue* theQueue) {
+    if (IsEmpty(theQueue))
+        return INT_MIN; // most negative integer
+    char item = theQueue->array[theQueue->front];
+    theQueue->front = (theQueue->front + 1) % theQueue->capacity;
+    theQueue->size = theQueue->size - 1;
+    return item;
+}
 
 void setClk(void);
 void setTimer(void);
@@ -10,6 +57,8 @@ void setPotInput(void);
 
 unsigned int usePot = 1; // 0 for PWM, 1 for potentiometer
 unsigned int potVolt = 0; // store potentiometer voltage in here
+
+struct Queue* queue;
 
 int main(void)
 {
