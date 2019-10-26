@@ -55,9 +55,11 @@ void setUART(void);
 void setADC(void);
 void setPotInput(void);
 
-unsigned volatile int usePot = 0; // 0 for PWM, 1 for potentiometer
-unsigned volatile int potVolt = 0; // store potentiometer voltage in here
-unsigned volatile int dutyCycle = 0;
+volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
+volatile unsigned int potVolt = 0; // store potentiometer voltage in here
+volatile unsigned int dutyCycle = 0;
+volatile unsigned int messageSize = 4; // for testing
+volatile unsigned int sizeOfQueue;
 
 struct Queue* queue;
 
@@ -72,24 +74,14 @@ int main(void)
 
     _EINT(); // enable global interrupts
 
+    queue = createQueue(messageSize); // message size
     P3DIR |= BIT1;
     P3OUT &= ~BIT1;
 
     while (1) {
-        if (usePot) {
-            ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
-            ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
-            ADC10CTL0 &= ~(ADC10SC);
-            while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
-            ADC10CTL0 &= ~(ADC10ENC);
-            potVolt = ADC10MEM0; // get pot voltage from ADC
-            TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
-        }
-
-        if (queue->size >= 4) {
+        if (queue->size >= messageSize) {
             char startByte = dequeue(queue);
             if (startByte == 255) { // data format: [start][motor][mode][direction][data1][data2][end]
-                P3OUT ^= BIT1;
                 char motorByte = dequeue(queue); // select DC or stepper
                 char modeByte = dequeue(queue); // select potentiometer or PWM
                 char directionByte = dequeue(queue);
@@ -97,30 +89,32 @@ int main(void)
 ////                char dataByte2 = dequeue(queue);
 ////
 ////                dutyCycle = dataByte1 << 8 + dataByte2;
-//
-//                if (motorByte == 0) {// DC motor
-//                    if (modeByte == 0) { // 0 to use pot
-//                        ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
-//                        ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
-//                        ADC10CTL0 &= ~(ADC10SC);
-//                        while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
-//                        ADC10CTL0 &= ~(ADC10ENC);
-//                        potVolt = ADC10MEM0; // get pot voltage from ADC
-//                        TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
-//                    }
-//                    else if (modeByte == 1) {
-//                        if (directionByte == 0) { // CW
-//                            TB0CCR1 = dutyCycle;
-//                            TB0CCR2 = 65535;
-//                        }
-//                        else if (directionByte == 1) { // CCW
-//                            TB0CCR1 = 65535;
-//                            TB0CCR2 = dutyCycle;
-//                        }
-//                    }
-//                }
+
+                if (motorByte == 0) {// DC motor
+                    if (modeByte == 0) { // 0 to use pot
+                        ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
+                        ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
+                        ADC10CTL0 &= ~(ADC10SC);
+                        while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
+                        ADC10CTL0 &= ~(ADC10ENC);
+                        potVolt = ADC10MEM0; // get pot voltage from ADC
+                        TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
+                    }
+                    else if (modeByte == 1) {
+                        P3OUT ^= BIT1;
+                        if (directionByte == 0) { // CW
+                            TB0CCR1 = dutyCycle;
+                            TB0CCR2 = 65535;
+                        }
+                        else if (directionByte == 1) { // CCW
+                            TB0CCR1 = 65535;
+                            TB0CCR2 = dutyCycle;
+                        }
+                    }
+                }
             }
         }
+    __delay_cycles(100000); // to avoid spamming serial reader
     }
     return 0;
 }
@@ -130,13 +124,6 @@ __interrupt void USCI_A1_ISR(void)
 {
     unsigned char RxByte = 0;
     RxByte = UCA1RXBUF; // get val from RX buffer
-    UCA1TXBUF = RxByte; // "echo back received byte"
-
-//    if (RxByte == 'j')
-//        P3OUT ^= BIT1;
-//
-//    if (RxByte == 'k')
-//        P3OUT ^= BIT1;
     enqueue(queue, RxByte);
 }
 
