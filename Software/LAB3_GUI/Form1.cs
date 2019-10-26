@@ -95,8 +95,6 @@ namespace LAB3_GUI
             }
         }
 
-
-
         private void chkByte1_CheckedChanged(object sender, EventArgs e)
         {
             if (chkByte1.Checked == true)
@@ -211,7 +209,7 @@ namespace LAB3_GUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lblIncomingDataRate.Text = "Incoming data rate = " + numberOfDataPoints.ToString() + " bytes per second";
+            lblIncomingDataRate.Text = "Incoming data rate = " + numberOfDataPoints.ToString() + " [byte/s]";
 
             //Adding a check to reconect to the serial port if there is no data streaming
             if (autoReconnectBox.Checked == true && numberOfDataPoints == 0 && serialPort1.IsOpen == true)
@@ -582,6 +580,5 @@ namespace LAB3_GUI
             //    }
             //}
         }
-
     }
 }

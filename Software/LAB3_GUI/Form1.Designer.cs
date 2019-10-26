@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.autoReconnectBox = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransmitToComPort = new System.Windows.Forms.Button();
@@ -104,6 +104,7 @@
             // timer1
             // 
             this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // btnTransmitToComPort
             // 
@@ -115,6 +116,7 @@
             this.btnTransmitToComPort.TabIndex = 22;
             this.btnTransmitToComPort.Text = "Transmit to Com Port";
             this.btnTransmitToComPort.UseVisualStyleBackColor = true;
+            this.btnTransmitToComPort.Click += new System.EventHandler(this.btnTransmitToComPort_Click);
             // 
             // txtByte5
             // 
@@ -124,6 +126,7 @@
             this.txtByte5.Name = "txtByte5";
             this.txtByte5.Size = new System.Drawing.Size(100, 30);
             this.txtByte5.TabIndex = 20;
+            this.txtByte5.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte4
             // 
@@ -133,6 +136,7 @@
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(100, 30);
             this.txtByte4.TabIndex = 19;
+            this.txtByte4.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte3
             // 
@@ -142,6 +146,7 @@
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(100, 30);
             this.txtByte3.TabIndex = 18;
+            this.txtByte3.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte2
             // 
@@ -151,6 +156,7 @@
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(100, 30);
             this.txtByte2.TabIndex = 17;
+            this.txtByte2.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte1
             // 
@@ -160,6 +166,7 @@
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(100, 30);
             this.txtByte1.TabIndex = 16;
+            this.txtByte1.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // chkByte3
             // 
@@ -172,6 +179,7 @@
             this.chkByte3.TabIndex = 15;
             this.chkByte3.Text = "Byte #3";
             this.chkByte3.UseVisualStyleBackColor = true;
+            this.chkByte3.CheckedChanged += new System.EventHandler(this.chkByte3_CheckedChanged);
             // 
             // chkByte2
             // 
@@ -184,6 +192,7 @@
             this.chkByte2.TabIndex = 14;
             this.chkByte2.Text = "Byte #2";
             this.chkByte2.UseVisualStyleBackColor = true;
+            this.chkByte2.CheckedChanged += new System.EventHandler(this.chkByte2_CheckedChanged);
             // 
             // chkByte1
             // 
@@ -196,6 +205,7 @@
             this.chkByte1.TabIndex = 13;
             this.chkByte1.Text = "Byte #1";
             this.chkByte1.UseVisualStyleBackColor = true;
+            this.chkByte1.CheckedChanged += new System.EventHandler(this.chkByte1_CheckedChanged);
             // 
             // lblIncomingDataRate
             // 
@@ -204,9 +214,9 @@
             this.lblIncomingDataRate.Location = new System.Drawing.Point(891, 0);
             this.lblIncomingDataRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIncomingDataRate.Name = "lblIncomingDataRate";
-            this.lblIncomingDataRate.Size = new System.Drawing.Size(206, 17);
+            this.lblIncomingDataRate.Size = new System.Drawing.Size(199, 17);
             this.lblIncomingDataRate.TabIndex = 8;
-            this.lblIncomingDataRate.Text = "Incoming Data Rate = 0 [byte/s]";
+            this.lblIncomingDataRate.Text = "Incoming data rate = 0 [byte/s]";
             // 
             // chkShowResponse
             // 
@@ -236,8 +246,9 @@
             this.btnConnect.Image = ((System.Drawing.Image)(resources.GetObject("btnConnect.Image")));
             this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(67, 25);
+            this.btnConnect.Size = new System.Drawing.Size(67, 28);
             this.btnConnect.Text = "Connect";
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // chkByte4
             // 
@@ -250,6 +261,7 @@
             this.chkByte4.TabIndex = 11;
             this.chkByte4.Text = "Byte #4";
             this.chkByte4.UseVisualStyleBackColor = true;
+            this.chkByte4.CheckedChanged += new System.EventHandler(this.chkByte4_CheckedChanged);
             // 
             // txtBaudRate
             // 
@@ -269,6 +281,7 @@
             this.chkByte5.TabIndex = 10;
             this.chkByte5.Text = "Byte #5";
             this.chkByte5.UseVisualStyleBackColor = true;
+            this.chkByte5.CheckedChanged += new System.EventHandler(this.chkByte5_CheckedChanged);
             // 
             // toolStripLabel1
             // 
@@ -280,6 +293,7 @@
             // 
             this.cmbComPort.Name = "cmbComPort";
             this.cmbComPort.Size = new System.Drawing.Size(159, 28);
+            this.cmbComPort.DropDown += new System.EventHandler(this.cmbComPort_DropDown);
             // 
             // label1
             // 
@@ -302,7 +316,7 @@
             this.btnConnect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1116, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(1116, 31);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -492,30 +506,30 @@
             // 
             // ctData
             // 
-            chartArea3.Name = "ChartArea1";
-            this.ctData.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            legend3.Position.Auto = false;
-            legend3.Position.Height = 12.70903F;
-            legend3.Position.Width = 25.41806F;
-            legend3.Position.X = 20F;
-            legend3.Position.Y = 3F;
-            this.ctData.Legends.Add(legend3);
+            chartArea6.Name = "ChartArea1";
+            this.ctData.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            legend6.Position.Auto = false;
+            legend6.Position.Height = 12.70903F;
+            legend6.Position.Width = 25.41806F;
+            legend6.Position.X = 20F;
+            legend6.Position.Y = 3F;
+            this.ctData.Legends.Add(legend6);
             this.ctData.Location = new System.Drawing.Point(577, 34);
             this.ctData.Margin = new System.Windows.Forms.Padding(4);
             this.ctData.Name = "ctData";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Legend = "Legend1";
-            series5.LegendText = "[rpm]";
-            series5.Name = "RPM";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.Legend = "Legend1";
-            series6.LegendText = "[Hz]";
-            series6.Name = "Hz";
-            this.ctData.Series.Add(series5);
-            this.ctData.Series.Add(series6);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series11.Legend = "Legend1";
+            series11.LegendText = "[rpm]";
+            series11.Name = "RPM";
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series12.Legend = "Legend1";
+            series12.LegendText = "[Hz]";
+            series12.Name = "Hz";
+            this.ctData.Series.Add(series11);
+            this.ctData.Series.Add(series12);
             this.ctData.Size = new System.Drawing.Size(517, 300);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
