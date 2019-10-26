@@ -75,10 +75,19 @@ int main(void)
     _EINT(); // enable global interrupts
 
     queue = createQueue(messageSize); // message size
-    P3DIR |= BIT1;
-    P3OUT &= ~BIT1;
+    P3DIR |= BIT1 + BIT2;
+    P3OUT &= ~(BIT1 + BIT2);
 
     while (1) {
+        if (usePot == 1){
+            ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
+            ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
+            ADC10CTL0 &= ~(ADC10SC);
+            while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
+            ADC10CTL0 &= ~(ADC10ENC);
+            potVolt = ADC10MEM0; // get pot voltage from ADC
+            TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
+        }
         if (queue->size >= messageSize) {
             char startByte = dequeue(queue);
             if (startByte == 255) { // data format: [start][motor][mode][direction][data1][data2][end]
@@ -91,24 +100,26 @@ int main(void)
 ////                dutyCycle = dataByte1 << 8 + dataByte2;
 
                 if (motorByte == 0) {// DC motor
-                    if (modeByte == 0) { // 0 to use pot
-                        ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
-                        ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
-                        ADC10CTL0 &= ~(ADC10SC);
-                        while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
-                        ADC10CTL0 &= ~(ADC10ENC);
-                        potVolt = ADC10MEM0; // get pot voltage from ADC
-                        TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
+                    if (modeByte == 0) { // 0 to do something
+                        __delay_cycles(100000);
                     }
                     else if (modeByte == 1) {
-                        P3OUT ^= BIT1;
                         if (directionByte == 0) { // CW
                             TB0CCR1 = dutyCycle;
                             TB0CCR2 = 65535;
+                            P3OUT |= BIT1;
+                            P3OUT &= ~BIT2;
                         }
                         else if (directionByte == 1) { // CCW
                             TB0CCR1 = 65535;
                             TB0CCR2 = dutyCycle;
+                            P3OUT |= BIT2;
+                            P3OUT &= ~BIT1;
+                        }
+                        else if (directionByte == 2) { // STOP
+                            TB0CCR1 = 65535;
+                            TB0CCR2 = 65535;
+                            P3OUT &= ~(BIT1 + BIT2);
                         }
                     }
                 }
@@ -136,11 +147,11 @@ void setClk() {
 }
 
 void setTimer() {
-    // Output timer B0 on P1.5
-    P1DIR |= BIT5;
-    P1OUT &= ~(BIT5);
-    P1SEL0 |= BIT5;
-    P1SEL1 &= ~(BIT5);
+    // Output timer B0 on P1.4 and P1.5
+    P1DIR |= BIT4 + BIT5;
+    P1OUT &= ~(BIT4 + BIT5);
+    P1SEL0 |= BIT4 + BIT5;
+    P1SEL1 &= ~(BIT4 + BIT5);
 
     // Set timer B0
     TB0CTL |= TBSSEL1 + MC0; // select SMCLK source, initialize up mode (ug372)
