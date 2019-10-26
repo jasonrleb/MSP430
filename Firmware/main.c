@@ -14,7 +14,7 @@ struct Queue {
 };
 
 // Create queue of given capacity with initial size 0
-struct Queue* CreateQueue(unsigned capacity) {
+struct Queue* createQueue(unsigned capacity) {
     struct Queue* theQueue = (struct Queue*) malloc(sizeof(struct Queue));
     theQueue->capacity = capacity;
     theQueue->front = theQueue->size = 0;
@@ -24,24 +24,24 @@ struct Queue* CreateQueue(unsigned capacity) {
     return theQueue;
 }
 
-int IsFull(struct Queue* theQueue) {
+int isFull(struct Queue* theQueue) {
     return (theQueue->size == theQueue->capacity);
 }
 
-int IsEmpty(struct Queue* theQueue) {
+int isEmpty(struct Queue* theQueue) {
     return(theQueue->size == 0);
 }
 
-void Enqueue(struct Queue* theQueue, char item) {
-    if (IsFull(theQueue))
+void enqueue(struct Queue* theQueue, char item) {
+    if (isFull(theQueue))
         return;
     theQueue->rear = (theQueue->rear + 1) % theQueue->capacity;
     theQueue->array[theQueue->rear] = item;
     theQueue->size = theQueue->size + 1;
 }
 
-char Dequeue(struct Queue* theQueue) {
-    if (IsEmpty(theQueue))
+char dequeue(struct Queue* theQueue) {
+    if (isEmpty(theQueue))
         return INT_MIN; // most negative integer
     char item = theQueue->array[theQueue->front];
     theQueue->front = (theQueue->front + 1) % theQueue->capacity;
@@ -55,8 +55,9 @@ void setUART(void);
 void setADC(void);
 void setPotInput(void);
 
-unsigned int usePot = 1; // 0 for PWM, 1 for potentiometer
-unsigned int potVolt = 0; // store potentiometer voltage in here
+unsigned volatile int usePot = 0; // 0 for PWM, 1 for potentiometer
+unsigned volatile int potVolt = 0; // store potentiometer voltage in here
+unsigned volatile int dutyCycle = 0;
 
 struct Queue* queue;
 
@@ -71,19 +72,56 @@ int main(void)
 
     _EINT(); // enable global interrupts
 
+    P3DIR |= BIT1;
+    P3OUT &= ~BIT1;
+
     while (1) {
         if (usePot) {
             ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
             ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
-            __delay_cycles(100); // avoid spamming
             ADC10CTL0 &= ~(ADC10SC);
             while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
             ADC10CTL0 &= ~(ADC10ENC);
             potVolt = ADC10MEM0; // get pot voltage from ADC
             TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
         }
-    }
 
+        if (queue->size >= 4) {
+            char startByte = dequeue(queue);
+            if (startByte == 255) { // data format: [start][motor][mode][direction][data1][data2][end]
+                P3OUT ^= BIT1;
+                char motorByte = dequeue(queue); // select DC or stepper
+                char modeByte = dequeue(queue); // select potentiometer or PWM
+                char directionByte = dequeue(queue);
+////                char dataByte1 = dequeue(queue);
+////                char dataByte2 = dequeue(queue);
+////
+////                dutyCycle = dataByte1 << 8 + dataByte2;
+//
+//                if (motorByte == 0) {// DC motor
+//                    if (modeByte == 0) { // 0 to use pot
+//                        ADC10MCTL0 = ADC10INCH_12; // use P3.0 A12
+//                        ADC10CTL0 |= ADC10ENC + ADC10SC; // enable and start conversion
+//                        ADC10CTL0 &= ~(ADC10SC);
+//                        while((ADC10IFG & ADC10IFG0) == 0); // wait for flag
+//                        ADC10CTL0 &= ~(ADC10ENC);
+//                        potVolt = ADC10MEM0; // get pot voltage from ADC
+//                        TB0CCR2 = potVolt << 8; // bitshift left since CCR is 16 bit number
+//                    }
+//                    else if (modeByte == 1) {
+//                        if (directionByte == 0) { // CW
+//                            TB0CCR1 = dutyCycle;
+//                            TB0CCR2 = 65535;
+//                        }
+//                        else if (directionByte == 1) { // CCW
+//                            TB0CCR1 = 65535;
+//                            TB0CCR2 = dutyCycle;
+//                        }
+//                    }
+//                }
+            }
+        }
+    }
     return 0;
 }
 
@@ -93,7 +131,13 @@ __interrupt void USCI_A1_ISR(void)
     unsigned char RxByte = 0;
     RxByte = UCA1RXBUF; // get val from RX buffer
     UCA1TXBUF = RxByte; // "echo back received byte"
-    while (!(UCA1IFG & UCTXIFG)); // wait until the previous Tx is finished
+
+//    if (RxByte == 'j')
+//        P3OUT ^= BIT1;
+//
+//    if (RxByte == 'k')
+//        P3OUT ^= BIT1;
+    enqueue(queue, RxByte);
 }
 
 void setClk() {
@@ -105,21 +149,20 @@ void setClk() {
 }
 
 void setTimer() {
-    // Output timer B0 on P1.4 and P1.5
-    P1DIR |= BIT4 + BIT5;
-    P1OUT &= ~(BIT4 + BIT5);
-    P1SEL0 |= BIT4 + BIT5;
-    P1SEL1 &= ~(BIT4 + BIT5);
+    // Output timer B0 on P1.5
+    P1DIR |= BIT5;
+    P1OUT &= ~(BIT5);
+    P1SEL0 |= BIT5;
+    P1SEL1 &= ~(BIT5);
 
     // Set timer B0
     TB0CTL |= TBSSEL1 + MC0; // select SMCLK source, initialize up mode (ug372)
     TB0CCTL1 = OUTMOD_3; // set/reset and interrupt enable (ug375, ug366 diagrams)
     TB0CCTL2 = OUTMOD_3; // set capture/compare register to set/reset (ug375)
 
-    // Set 1000Hz waves (draw up graph to show)
-    TB0CCR0 = 1000 - 1; // = (CLK/divider)/target = (8E6/8)/1000; subtract one since it counts more
-    TB0CCR1 = 500;
-//    TB0CCR2 = 65535;
+    // Max 16 bit value for timer, adjust in code
+    TB0CCR0 = 65536 - 1;
+    TB0CCR1 = 32767;
 
     // Output timer B1 on P3.4 and P3.5
     P3DIR |= BIT4 + BIT5;
@@ -135,7 +178,6 @@ void setTimer() {
     // Set 1000Hz waves (draw up graph to show)
     TB1CCR0 = 1000 - 1; // = (CLK/divider)/target = (8E6/8)/1000; subtract one since it counts more
     TB1CCR1 = 500;
-//    TB1CCR2 = 65535;
 }
 
 void setUART() {
@@ -155,10 +197,6 @@ void setADC() {
     ADC10CTL1 = ADC10SHS_0 + ADC10SHP + ADC10CONSEQ_0 + ADC10SSEL_0;
     ADC10CTL2 = ADC10RES; // 8 or 10 bit ADC out
     ADC10MCTL0 = ADC10SREF_1 + ADC10INCH_12; // ADC10INCH_12 for potentiometer
-    ADC10IV = 0x00;    // clear all ADC12 channel int flags
-    ADC10IE |= ADC10IE0;  // enable ADC10 interrupts
-
-    ADC10CTL0 |= ADC10ENC | ADC10SC; // start the first sample. If this is not done the ADC10 interrupt will not trigger.
 
     // Set internal voltage reference
     while(REFCTL0 & REFGENBUSY);
@@ -166,7 +204,7 @@ void setADC() {
 }
 
 void setPotInput() {
-    // Output Pot on P3.0 ds80
+    // Input pot on P3.0 ds80
     P3DIR |= BIT0;
     P3SEL1 |= BIT0;
     P3SEL0 |= BIT0;
