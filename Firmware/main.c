@@ -97,7 +97,7 @@ int main(void)
                 char dataByte1 = dequeue(queue);
                 char dataByte2 = dequeue(queue);
 
-                dutyCycle = dataByte1 << 8 + dataByte2;
+                dutyCycle = dataByte1 << 8 | dataByte2;
 
                 if (directionByte == 0) { // CW
                     TB0CCR1 = dutyCycle;
