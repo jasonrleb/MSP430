@@ -191,6 +191,10 @@ namespace LAB3_GUI
                         txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
                     }
                 }
+                else
+                {
+                    MessageBox.Show("No device connected...", "ERROR", 0);
+                }
             }
             catch (Exception Ex)
             {
@@ -512,15 +516,15 @@ namespace LAB3_GUI
             }
 
             //Set direction byte
-            if (btStepperDir.Text == "CW")
+            if (btDCDir.Text == "CW")
             {
                 TxBytes[3] = 0;
             }
-            if (btStepperDir.Text == "CCW")
+            if (btDCDir.Text == "CCW")
             {
                 TxBytes[3] = 1;
             }
-            if (btStepperDir.Text == "STOP")
+            if (btDCDir.Text == "STOP")
             {
                 TxBytes[3] = 2;
             }
@@ -587,12 +591,6 @@ namespace LAB3_GUI
             }
 
             if (btDCMode.Text == "Duty")
-            {
-                btDCMode.Text = "Step";
-                return;
-            }
-
-            if (btDCMode.Text == "Step")
             {
                 btDCMode.Text = "Pot";
                 return;
