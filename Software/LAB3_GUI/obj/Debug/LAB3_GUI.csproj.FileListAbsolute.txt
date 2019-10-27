@@ -13,3 +13,17 @@ C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.exe
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.pdb
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csprojAssemblyReference.cache
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.exe.config
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.exe
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\LAB3_GUI.pdb
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\CsvHelper.dll
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\System.ValueTuple.dll
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\CsvHelper.xml
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\bin\Debug\System.ValueTuple.xml
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csprojAssemblyReference.cache
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.Form1.resources
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.Properties.Resources.resources
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csproj.GenerateResource.cache
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.csproj.CopyComplete
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.exe
+D:\Texas Instruments\Projects\Lab3\MSP430\Software\LAB3_GUI\obj\Debug\LAB3_GUI.pdb
