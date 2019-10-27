@@ -532,7 +532,7 @@ namespace LAB3_GUI
             //Set PWM Duty byte
             int duty = 0;
             Int32.TryParse(tbDCPWM.Text, out duty); //converts speed input to integer
-            int pwm = 65536 * (duty / 100); //gets appropriate count value based on PWM duty
+            int pwm = ((65536 * duty) / 100); //gets appropriate count value based on PWM duty
 
             TxBytes[5] = (byte)(pwm);
             TxBytes[4] = (byte)(pwm >> 8);
