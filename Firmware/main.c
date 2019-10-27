@@ -58,7 +58,7 @@ void setPotInput(void);
 volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
 volatile unsigned int potVolt = 0; // store potentiometer voltage in here
 volatile unsigned int dutyCycle = 0;
-volatile unsigned int messageSize = 4; // for testing
+volatile unsigned int messageSize = 6; // for testing
 volatile unsigned int sizeOfQueue;
 
 struct Queue* queue;
@@ -91,56 +91,38 @@ int main(void)
         if (queue->size >= messageSize) {
             char startByte = dequeue(queue);
             if (startByte == 255) { // data format: [start][motor][mode][direction][data1][data2][end]
-//                char motorByte = dequeue(queue); // select DC or stepper
-//                char modeByte = dequeue(queue); // select potentiometer or PWM
+                char motorByte = dequeue(queue); // select DC or stepper
+                char modeByte = dequeue(queue); // select potentiometer or PWM
                 char directionByte = dequeue(queue);
                 char dataByte1 = dequeue(queue);
                 char dataByte2 = dequeue(queue);
 
-                dutyCycle = dataByte1 << 8 + dataByte2;
+                dutyCycle = dataByte1 << 8 | dataByte2;
 
-                if (directionByte == 0) { // CW
-                    TB0CCR1 = dutyCycle;
-                    TB0CCR2 = 65535;
-                    P3OUT |= BIT1;
-                    P3OUT &= ~BIT2;
+                if (motorByte == 0) {// DC motor
+                    if (modeByte == 0) { // 0 to do nothing (was initially for pot)
+                        __delay_cycles(100000);
+                    }
+                    else if (modeByte == 1) {
+                        if (directionByte == 0) { // CW
+                            TB0CCR1 = dutyCycle;
+                            TB0CCR2 = 65535;
+                            P3OUT |= BIT1;
+                            P3OUT &= ~BIT2;
+                        }
+                        else if (directionByte == 1) { // CCW
+                            TB0CCR1 = 65535;
+                            TB0CCR2 = dutyCycle;
+                            P3OUT |= BIT2;
+                            P3OUT &= ~BIT1;
+                        }
+                        else if (directionByte == 2) { // STOP
+                            TB0CCR1 = 65535;
+                            TB0CCR2 = 65535;
+                            P3OUT &= ~(BIT1 + BIT2);
+                        }
+                    }
                 }
-                else if (directionByte == 1) { // CCW
-                    TB0CCR1 = 65535;
-                    TB0CCR2 = dutyCycle;
-                    P3OUT |= BIT2;
-                    P3OUT &= ~BIT1;
-                }
-                else if (directionByte == 2) { // STOP
-                    TB0CCR1 = 65535;
-                    TB0CCR2 = 65535;
-                    P3OUT &= ~(BIT1 + BIT2);
-                }
-
-//                if (motorByte == 0) {// DC motor
-//                    if (modeByte == 0) { // 0 to do something
-//                        __delay_cycles(100000);
-//                    }
-//                    else if (modeByte == 1) {
-//                        if (directionByte == 0) { // CW
-//                            TB0CCR1 = dutyCycle;
-//                            TB0CCR2 = 65535;
-//                            P3OUT |= BIT1;
-//                            P3OUT &= ~BIT2;
-//                        }
-//                        else if (directionByte == 1) { // CCW
-//                            TB0CCR1 = 65535;
-//                            TB0CCR2 = dutyCycle;
-//                            P3OUT |= BIT2;
-//                            P3OUT &= ~BIT1;
-//                        }
-//                        else if (directionByte == 2) { // STOP
-//                            TB0CCR1 = 65535;
-//                            TB0CCR2 = 65535;
-//                            P3OUT &= ~(BIT1 + BIT2);
-//                        }
-//                    }
-//                }
             }
         }
     __delay_cycles(100000); // to avoid spamming serial reader
