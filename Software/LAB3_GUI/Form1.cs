@@ -50,11 +50,15 @@ namespace LAB3_GUI
             chkByte3.Checked = false;
             chkByte4.Checked = false;
             chkByte5.Checked = false;
+            chkByte6.Checked = false;
+            chkByte7.Checked = false;
             txtByte1.Enabled = false;
             txtByte2.Enabled = false;
             txtByte3.Enabled = false;
             txtByte4.Enabled = false;
             txtByte5.Enabled = false;
+            txtByte6.Enabled = false;
+            txtByte7.Enabled = false;
             ComPortUpdate();
         }
 
@@ -146,7 +150,7 @@ namespace LAB3_GUI
 
         private void btnTransmitToComPort_Click(object sender, EventArgs e)
         {
-            byte[] TxBytes = new Byte[5];
+            byte[] TxBytes = new Byte[7];
 
             try
             {
@@ -156,26 +160,43 @@ namespace LAB3_GUI
                     {
                         TxBytes[0] = Convert.ToByte(txtByte1.Text);
                         serialPort1.Write(TxBytes, 0, 1);
+                        txtRawSerial.AppendText(TxBytes[0].ToString() + ", "); //prints to display box
                     }
                     if (chkByte2.Checked && (txtByte2.Text != ""))
                     {
                         TxBytes[1] = Convert.ToByte(txtByte2.Text);
                         serialPort1.Write(TxBytes, 1, 1);
+                        txtRawSerial.AppendText(TxBytes[1].ToString() + ", ");
                     }
                     if (chkByte3.Checked && (txtByte3.Text != ""))
                     {
                         TxBytes[2] = Convert.ToByte(txtByte3.Text);
                         serialPort1.Write(TxBytes, 2, 1);
+                        txtRawSerial.AppendText(TxBytes[2].ToString() + ", ");
                     }
                     if (chkByte4.Checked && (txtByte4.Text != ""))
                     {
                         TxBytes[3] = Convert.ToByte(txtByte4.Text);
                         serialPort1.Write(TxBytes, 3, 1);
+                        txtRawSerial.AppendText(TxBytes[3].ToString() + ", ");
                     }
                     if (chkByte5.Checked && (txtByte5.Text != ""))
                     {
                         TxBytes[4] = Convert.ToByte(txtByte5.Text);
                         serialPort1.Write(TxBytes, 4, 1);
+                        txtRawSerial.AppendText(TxBytes[4].ToString() + ", ");
+                    }
+                    if (chkByte6.Checked && (txtByte6.Text != ""))
+                    {
+                        TxBytes[5] = Convert.ToByte(txtByte6.Text);
+                        serialPort1.Write(TxBytes, 5, 1);
+                        txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
+                    }
+                    if (chkByte7.Checked && (txtByte7.Text != ""))
+                    {
+                        TxBytes[6] = Convert.ToByte(txtByte7.Text);
+                        serialPort1.Write(TxBytes, 6, 1);
+                        txtRawSerial.AppendText(TxBytes[6].ToString() + ", ");
                     }
                 }
             }
@@ -204,6 +225,28 @@ namespace LAB3_GUI
             {
                 txtByte5.Clear();
                 txtByte5.Enabled = false;
+            }
+        }
+
+        private void chkByte6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkByte6.Checked == true)
+                txtByte6.Enabled = true;
+            else
+            {
+                txtByte6.Clear();
+                txtByte6.Enabled = false;
+            }
+        }
+
+        private void chkByte7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkByte7.Checked == true)
+                txtByte7.Enabled = true;
+            else
+            {
+                txtByte7.Clear();
+                txtByte7.Enabled = false;
             }
         }
 
