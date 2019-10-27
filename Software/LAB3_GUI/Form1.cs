@@ -51,14 +51,12 @@ namespace LAB3_GUI
             chkByte4.Checked = false;
             chkByte5.Checked = false;
             chkByte6.Checked = false;
-            chkByte7.Checked = false;
             txtByte1.Enabled = false;
             txtByte2.Enabled = false;
             txtByte3.Enabled = false;
             txtByte4.Enabled = false;
             txtByte5.Enabled = false;
             txtByte6.Enabled = false;
-            txtByte7.Enabled = false;
             ComPortUpdate();
         }
 
@@ -150,7 +148,7 @@ namespace LAB3_GUI
 
         private void btnTransmitToComPort_Click(object sender, EventArgs e)
         {
-            byte[] TxBytes = new Byte[7];
+            byte[] TxBytes = new Byte[6];
 
             try
             {
@@ -192,12 +190,6 @@ namespace LAB3_GUI
                         serialPort1.Write(TxBytes, 5, 1);
                         txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
                     }
-                    if (chkByte7.Checked && (txtByte7.Text != ""))
-                    {
-                        TxBytes[6] = Convert.ToByte(txtByte7.Text);
-                        serialPort1.Write(TxBytes, 6, 1);
-                        txtRawSerial.AppendText(TxBytes[6].ToString() + ", ");
-                    }
                 }
             }
             catch (Exception Ex)
@@ -236,17 +228,6 @@ namespace LAB3_GUI
             {
                 txtByte6.Clear();
                 txtByte6.Enabled = false;
-            }
-        }
-
-        private void chkByte7_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkByte7.Checked == true)
-                txtByte7.Enabled = true;
-            else
-            {
-                txtByte7.Clear();
-                txtByte7.Enabled = false;
             }
         }
 
@@ -316,10 +297,17 @@ namespace LAB3_GUI
             if (btStepperDir.Text == "CW")
             {
                 btStepperDir.Text = "CCW";
+                return;
             }
-            else
+            if (btStepperDir.Text == "CCW")
+            {
+                btStepperDir.Text = "STOP";
+                return;
+            }
+            if (btStepperDir.Text == "STOP")
             {
                 btStepperDir.Text = "CW";
+                return;
             }
         }
 
@@ -360,11 +348,10 @@ namespace LAB3_GUI
         //Stepper Output
         private void BtStepperCommand_Click(object sender, EventArgs e)
         {
-            byte[] TxBytes = new Byte[7]; //1 Start byte, 1 Dir byte, 1 Mode byte, 1 Speed byte
+            byte[] TxBytes = new Byte[6]; //1 Start byte, 1 Dir byte, 1 Mode byte, 1 Speed byte
 
-            //Set start & end byte
+            //Set start byte
             TxBytes[0] = 255;
-            TxBytes[6] = 254;
 
             //Sets Motor Byte
             TxBytes[1] = 1; //Stepper Mode [1]
@@ -387,6 +374,10 @@ namespace LAB3_GUI
             if (btStepperDir.Text == "CCW")
             {
                 TxBytes[3] = 1;
+            }
+            if (btStepperDir.Text == "STOP")
+            {
+                TxBytes[3] = 2;
             }
 
             //Set speed units
@@ -435,7 +426,7 @@ namespace LAB3_GUI
                         if (serialPort1.IsOpen) //ERROR Check Serial Port Open
                         {
                             int i;
-                            for (i = 0; i < 7; i++) //Send bytes
+                            for (i = 0; i < 6; i++) //Send bytes
                             {
                                 serialPort1.Write(TxBytes, i, 1);
                                 txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
@@ -484,10 +475,17 @@ namespace LAB3_GUI
             if (btDCDir.Text == "CW")
             {
                 btDCDir.Text = "CCW";
+                return;
             }
-            else
+            if (btDCDir.Text == "CCW")
+            {
+                btDCDir.Text = "STOP";
+                return;
+            }
+            if (btDCDir.Text == "STOP")
             {
                 btDCDir.Text = "CW";
+                return;
             }
         }
 
@@ -497,9 +495,8 @@ namespace LAB3_GUI
         {
             byte[] TxBytes = new Byte[6]; //1 Start byte, 1 Dir byte, 2 PWM bytes (16bit)
 
-            //Set start & end bytes
+            //Set start byte
             TxBytes[0] = 255;
-            TxBytes[0] = 254;
 
             //Sets Motor Byte
             TxBytes[1] = 0; //DC Mode [0]
@@ -522,6 +519,10 @@ namespace LAB3_GUI
             if (btStepperDir.Text == "CCW")
             {
                 TxBytes[3] = 1;
+            }
+            if (btStepperDir.Text == "STOP")
+            {
+                TxBytes[3] = 2;
             }
 
             //Set PWM Duty byte
@@ -551,7 +552,7 @@ namespace LAB3_GUI
                         if (serialPort1.IsOpen)//Serial port check if open
                         {
                             int i;
-                            for (i = 0; i < 7; i++) //Send bytes
+                            for (i = 0; i < 6; i++) //Send bytes
                             {
                                 serialPort1.Write(TxBytes, i, 1);
                                 txtRawSerial.AppendText(TxBytes[i].ToString() + ", "); //DEBUG
@@ -623,5 +624,6 @@ namespace LAB3_GUI
             //    }
             //}
         }
+
     }
 }

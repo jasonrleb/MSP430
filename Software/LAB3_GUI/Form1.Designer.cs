@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.autoReconnectBox = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransmitToComPort = new System.Windows.Forms.Button();
@@ -87,8 +87,6 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.txtByte6 = new System.Windows.Forms.TextBox();
             this.chkByte6 = new System.Windows.Forms.CheckBox();
-            this.txtByte7 = new System.Windows.Forms.TextBox();
-            this.chkByte7 = new System.Windows.Forms.CheckBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctData)).BeginInit();
             this.SuspendLayout();
@@ -97,7 +95,7 @@
             // 
             this.autoReconnectBox.AutoSize = true;
             this.autoReconnectBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.autoReconnectBox.Location = new System.Drawing.Point(409, 54);
+            this.autoReconnectBox.Location = new System.Drawing.Point(393, 54);
             this.autoReconnectBox.Margin = new System.Windows.Forms.Padding(4);
             this.autoReconnectBox.Name = "autoReconnectBox";
             this.autoReconnectBox.Size = new System.Drawing.Size(131, 21);
@@ -116,7 +114,7 @@
             this.btnTransmitToComPort.Location = new System.Drawing.Point(9, 160);
             this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(4);
             this.btnTransmitToComPort.Name = "btnTransmitToComPort";
-            this.btnTransmitToComPort.Size = new System.Drawing.Size(593, 43);
+            this.btnTransmitToComPort.Size = new System.Drawing.Size(515, 43);
             this.btnTransmitToComPort.TabIndex = 22;
             this.btnTransmitToComPort.Text = "Transmit to Com Port";
             this.btnTransmitToComPort.UseVisualStyleBackColor = true;
@@ -510,31 +508,31 @@
             // 
             // ctData
             // 
-            chartArea6.Name = "ChartArea1";
-            this.ctData.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            legend6.Position.Auto = false;
-            legend6.Position.Height = 12.70903F;
-            legend6.Position.Width = 25.41806F;
-            legend6.Position.X = 20F;
-            legend6.Position.Y = 3F;
-            this.ctData.Legends.Add(legend6);
-            this.ctData.Location = new System.Drawing.Point(627, 34);
+            chartArea1.Name = "ChartArea1";
+            this.ctData.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 12.70903F;
+            legend1.Position.Width = 25.41806F;
+            legend1.Position.X = 20F;
+            legend1.Position.Y = 3F;
+            this.ctData.Legends.Add(legend1);
+            this.ctData.Location = new System.Drawing.Point(547, 34);
             this.ctData.Margin = new System.Windows.Forms.Padding(4);
             this.ctData.Name = "ctData";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series11.Legend = "Legend1";
-            series11.LegendText = "[rpm]";
-            series11.Name = "RPM";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series12.Legend = "Legend1";
-            series12.LegendText = "[Hz]";
-            series12.Name = "Hz";
-            this.ctData.Series.Add(series11);
-            this.ctData.Series.Add(series12);
-            this.ctData.Size = new System.Drawing.Size(467, 300);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.LegendText = "[rpm]";
+            series1.Name = "RPM";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.LegendText = "[Hz]";
+            series2.Name = "Hz";
+            this.ctData.Series.Add(series1);
+            this.ctData.Series.Add(series2);
+            this.ctData.Size = new System.Drawing.Size(547, 300);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
             // 
@@ -642,36 +640,11 @@
             this.chkByte6.UseVisualStyleBackColor = true;
             this.chkByte6.CheckedChanged += new System.EventHandler(this.chkByte6_CheckedChanged);
             // 
-            // txtByte7
-            // 
-            this.txtByte7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtByte7.Location = new System.Drawing.Point(524, 119);
-            this.txtByte7.Margin = new System.Windows.Forms.Padding(4);
-            this.txtByte7.Name = "txtByte7";
-            this.txtByte7.Size = new System.Drawing.Size(78, 30);
-            this.txtByte7.TabIndex = 57;
-            this.txtByte7.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
-            // 
-            // chkByte7
-            // 
-            this.chkByte7.AutoSize = true;
-            this.chkByte7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.chkByte7.Location = new System.Drawing.Point(524, 86);
-            this.chkByte7.Margin = new System.Windows.Forms.Padding(4);
-            this.chkByte7.Name = "chkByte7";
-            this.chkByte7.Size = new System.Drawing.Size(78, 21);
-            this.chkByte7.TabIndex = 56;
-            this.chkByte7.Text = "Byte #7";
-            this.chkByte7.UseVisualStyleBackColor = true;
-            this.chkByte7.CheckedChanged += new System.EventHandler(this.chkByte7_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 575);
-            this.Controls.Add(this.txtByte7);
-            this.Controls.Add(this.chkByte7);
             this.Controls.Add(this.txtByte6);
             this.Controls.Add(this.chkByte6);
             this.Controls.Add(this.label13);
@@ -785,8 +758,6 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox txtByte6;
         private System.Windows.Forms.CheckBox chkByte6;
-        private System.Windows.Forms.TextBox txtByte7;
-        private System.Windows.Forms.CheckBox chkByte7;
     }
 }
 
