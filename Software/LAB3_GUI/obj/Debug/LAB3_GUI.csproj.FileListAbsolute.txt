@@ -19,6 +19,7 @@ C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\System.ValueTuple.dll
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\CsvHelper.xml
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\bin\Debug\System.ValueTuple.xml
+C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\obj\Debug\LAB3_GUI.csprojAssemblyReference.cache
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\obj\Debug\LAB3_GUI.Form1.resources
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\obj\Debug\LAB3_GUI.Properties.Resources.resources
 C:\Users\JasonsRazer\Dropbox\NOTES\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\Lab3_GUI\obj\Debug\LAB3_GUI.csproj.GenerateResource.cache
