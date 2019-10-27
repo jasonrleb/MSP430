@@ -532,19 +532,20 @@ namespace LAB3_GUI
             //Set PWM Duty byte
             int duty = 0;
             Int32.TryParse(tbDCPWM.Text, out duty); //converts speed input to integer
-            int pwm = ((65536 * duty) / 100); //gets appropriate count value based on PWM duty
+            int pwm = 65535 - ((65535 * duty) / 100); //gets appropriate count value based on PWM duty
 
-            TxBytes[5] = (byte)(pwm);
-            TxBytes[4] = (byte)(pwm >> 8);
+            TxBytes[5] = (byte)(pwm & 0xff);
+            TxBytes[4] = (byte)((pwm >> 8) & 0xff);
+
 
             //Transmit bytes
             if (cbDCEnable.Checked)
             {  //ERROR DC Motor enable check
 
                 //ERROR: Check mode and appropriate input
-                if (btDCMode.Text == "Duty" && (duty >= 100 || duty <= 0)) //ERROR Invalid input check
+                if (btDCMode.Text == "Duty" && (duty > 100 || duty <= 0)) //ERROR Invalid input check
                 {
-                    MessageBox.Show("Invalid PWM Duty input, enter integer value from 0-100...", "ERROR", 0);
+                    MessageBox.Show("Invalid PWM Duty input, enter integer value from 1-100...", "ERROR", 0);
                     tbDCPWM.Text = "";
                 }
 
