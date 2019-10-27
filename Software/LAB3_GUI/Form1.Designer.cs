@@ -85,6 +85,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.txtByte6 = new System.Windows.Forms.TextBox();
+            this.chkByte6 = new System.Windows.Forms.CheckBox();
+            this.txtByte7 = new System.Windows.Forms.TextBox();
+            this.chkByte7 = new System.Windows.Forms.CheckBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctData)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +116,7 @@
             this.btnTransmitToComPort.Location = new System.Drawing.Point(9, 160);
             this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(4);
             this.btnTransmitToComPort.Name = "btnTransmitToComPort";
-            this.btnTransmitToComPort.Size = new System.Drawing.Size(539, 43);
+            this.btnTransmitToComPort.Size = new System.Drawing.Size(593, 43);
             this.btnTransmitToComPort.TabIndex = 22;
             this.btnTransmitToComPort.Text = "Transmit to Com Port";
             this.btnTransmitToComPort.UseVisualStyleBackColor = true;
@@ -121,40 +125,40 @@
             // txtByte5
             // 
             this.txtByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtByte5.Location = new System.Drawing.Point(447, 119);
+            this.txtByte5.Location = new System.Drawing.Point(353, 119);
             this.txtByte5.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte5.Name = "txtByte5";
-            this.txtByte5.Size = new System.Drawing.Size(100, 30);
+            this.txtByte5.Size = new System.Drawing.Size(77, 30);
             this.txtByte5.TabIndex = 20;
             this.txtByte5.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte4
             // 
             this.txtByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtByte4.Location = new System.Drawing.Point(337, 119);
+            this.txtByte4.Location = new System.Drawing.Point(267, 119);
             this.txtByte4.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte4.Name = "txtByte4";
-            this.txtByte4.Size = new System.Drawing.Size(100, 30);
+            this.txtByte4.Size = new System.Drawing.Size(78, 30);
             this.txtByte4.TabIndex = 19;
             this.txtByte4.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte3
             // 
             this.txtByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtByte3.Location = new System.Drawing.Point(228, 119);
+            this.txtByte3.Location = new System.Drawing.Point(181, 119);
             this.txtByte3.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte3.Name = "txtByte3";
-            this.txtByte3.Size = new System.Drawing.Size(100, 30);
+            this.txtByte3.Size = new System.Drawing.Size(78, 30);
             this.txtByte3.TabIndex = 18;
             this.txtByte3.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
             // txtByte2
             // 
             this.txtByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtByte2.Location = new System.Drawing.Point(119, 119);
+            this.txtByte2.Location = new System.Drawing.Point(95, 119);
             this.txtByte2.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte2.Name = "txtByte2";
-            this.txtByte2.Size = new System.Drawing.Size(100, 30);
+            this.txtByte2.Size = new System.Drawing.Size(78, 30);
             this.txtByte2.TabIndex = 17;
             this.txtByte2.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
@@ -164,7 +168,7 @@
             this.txtByte1.Location = new System.Drawing.Point(9, 119);
             this.txtByte1.Margin = new System.Windows.Forms.Padding(4);
             this.txtByte1.Name = "txtByte1";
-            this.txtByte1.Size = new System.Drawing.Size(100, 30);
+            this.txtByte1.Size = new System.Drawing.Size(78, 30);
             this.txtByte1.TabIndex = 16;
             this.txtByte1.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
             // 
@@ -172,7 +176,7 @@
             // 
             this.chkByte3.AutoSize = true;
             this.chkByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.chkByte3.Location = new System.Drawing.Point(228, 86);
+            this.chkByte3.Location = new System.Drawing.Point(181, 86);
             this.chkByte3.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte3.Name = "chkByte3";
             this.chkByte3.Size = new System.Drawing.Size(78, 21);
@@ -185,7 +189,7 @@
             // 
             this.chkByte2.AutoSize = true;
             this.chkByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.chkByte2.Location = new System.Drawing.Point(119, 86);
+            this.chkByte2.Location = new System.Drawing.Point(95, 86);
             this.chkByte2.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte2.Name = "chkByte2";
             this.chkByte2.Size = new System.Drawing.Size(78, 21);
@@ -246,7 +250,7 @@
             this.btnConnect.Image = ((System.Drawing.Image)(resources.GetObject("btnConnect.Image")));
             this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(67, 28);
+            this.btnConnect.Size = new System.Drawing.Size(67, 25);
             this.btnConnect.Text = "Connect";
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -254,7 +258,7 @@
             // 
             this.chkByte4.AutoSize = true;
             this.chkByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.chkByte4.Location = new System.Drawing.Point(337, 86);
+            this.chkByte4.Location = new System.Drawing.Point(267, 86);
             this.chkByte4.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte4.Name = "chkByte4";
             this.chkByte4.Size = new System.Drawing.Size(78, 21);
@@ -274,7 +278,7 @@
             // 
             this.chkByte5.AutoSize = true;
             this.chkByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.chkByte5.Location = new System.Drawing.Point(447, 86);
+            this.chkByte5.Location = new System.Drawing.Point(353, 86);
             this.chkByte5.Margin = new System.Windows.Forms.Padding(4);
             this.chkByte5.Name = "chkByte5";
             this.chkByte5.Size = new System.Drawing.Size(78, 21);
@@ -316,7 +320,7 @@
             this.btnConnect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1116, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1116, 28);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -515,7 +519,7 @@
             legend6.Position.X = 20F;
             legend6.Position.Y = 3F;
             this.ctData.Legends.Add(legend6);
-            this.ctData.Location = new System.Drawing.Point(577, 34);
+            this.ctData.Location = new System.Drawing.Point(627, 34);
             this.ctData.Margin = new System.Windows.Forms.Padding(4);
             this.ctData.Name = "ctData";
             series11.ChartArea = "ChartArea1";
@@ -530,7 +534,7 @@
             series12.Name = "Hz";
             this.ctData.Series.Add(series11);
             this.ctData.Series.Add(series12);
-            this.ctData.Size = new System.Drawing.Size(517, 300);
+            this.ctData.Size = new System.Drawing.Size(467, 300);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
             // 
@@ -615,11 +619,61 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
+            // txtByte6
+            // 
+            this.txtByte6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtByte6.Location = new System.Drawing.Point(438, 119);
+            this.txtByte6.Margin = new System.Windows.Forms.Padding(4);
+            this.txtByte6.Name = "txtByte6";
+            this.txtByte6.Size = new System.Drawing.Size(78, 30);
+            this.txtByte6.TabIndex = 55;
+            this.txtByte6.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
+            // 
+            // chkByte6
+            // 
+            this.chkByte6.AutoSize = true;
+            this.chkByte6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.chkByte6.Location = new System.Drawing.Point(438, 86);
+            this.chkByte6.Margin = new System.Windows.Forms.Padding(4);
+            this.chkByte6.Name = "chkByte6";
+            this.chkByte6.Size = new System.Drawing.Size(78, 21);
+            this.chkByte6.TabIndex = 54;
+            this.chkByte6.Text = "Byte #6";
+            this.chkByte6.UseVisualStyleBackColor = true;
+            this.chkByte6.CheckedChanged += new System.EventHandler(this.chkByte6_CheckedChanged);
+            // 
+            // txtByte7
+            // 
+            this.txtByte7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtByte7.Location = new System.Drawing.Point(524, 119);
+            this.txtByte7.Margin = new System.Windows.Forms.Padding(4);
+            this.txtByte7.Name = "txtByte7";
+            this.txtByte7.Size = new System.Drawing.Size(78, 30);
+            this.txtByte7.TabIndex = 57;
+            this.txtByte7.TextChanged += new System.EventHandler(this.genericTextBoxEventHandler);
+            // 
+            // chkByte7
+            // 
+            this.chkByte7.AutoSize = true;
+            this.chkByte7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.chkByte7.Location = new System.Drawing.Point(524, 86);
+            this.chkByte7.Margin = new System.Windows.Forms.Padding(4);
+            this.chkByte7.Name = "chkByte7";
+            this.chkByte7.Size = new System.Drawing.Size(78, 21);
+            this.chkByte7.TabIndex = 56;
+            this.chkByte7.Text = "Byte #7";
+            this.chkByte7.UseVisualStyleBackColor = true;
+            this.chkByte7.CheckedChanged += new System.EventHandler(this.chkByte7_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 575);
+            this.Controls.Add(this.txtByte7);
+            this.Controls.Add(this.chkByte7);
+            this.Controls.Add(this.txtByte6);
+            this.Controls.Add(this.chkByte6);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
@@ -729,6 +783,10 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.TextBox txtByte6;
+        private System.Windows.Forms.CheckBox chkByte6;
+        private System.Windows.Forms.TextBox txtByte7;
+        private System.Windows.Forms.CheckBox chkByte7;
     }
 }
 
