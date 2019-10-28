@@ -55,7 +55,7 @@ void setUART(void);
 void setADC(void);
 void setPotInput(void);
 
-volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
+volatile unsigned int usePot = 1; // 0 for PWM, 1 for potentiometer
 volatile unsigned int potVolt = 0; // store potentiometer voltage in here
 volatile unsigned int dutyCycle = 0;
 volatile unsigned int messageSize = 6; // for testing
