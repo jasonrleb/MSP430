@@ -49,19 +49,42 @@ char dequeue(struct Queue* theQueue) {
     return item;
 }
 
-void setClk(void);
-void setTimer(void);
-void setUART(void);
-void setADC(void);
-void setPotInput(void);
+struct Queue* queue;
 
 volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
 volatile unsigned int potVolt = 0; // store potentiometer voltage in here
 volatile unsigned int dutyCycle = 0;
 volatile unsigned int messageSize = 6; // for testing
 volatile unsigned int sizeOfQueue;
+volatile unsigned int stateVariable = 0; // range 0 - 7
+volatile unsigned int state[8][4] = {
+                                     {{1, 0, 0, 0}},
+                                     {{1, 0, 1, 0}},
+                                     {{0, 0, 1, 0}},
+                                     {{0, 1, 1, 0}},
+                                     {{0, 1, 0, 0}},
+                                     {{0, 1, 0, 1}},
+                                     {{0, 0, 0, 1}},
+                                     {{1, 0, 0, 1}}};
 
-struct Queue* queue;
+
+void increaseStateVariable() {
+    stateVariable++;
+    if (stateVariable == 8) // reached maximum
+        stateVariable == 0;
+}
+
+void decreaseStateVariable() {
+    stateVariable--;
+    if (stateVariable < 0) // reached minimum
+        stateVariable == 7;
+}
+
+void setClk(void);
+void setTimer(void);
+void setUART(void);
+void setADC(void);
+void setPotInput(void);
 
 int main(void)
 {
