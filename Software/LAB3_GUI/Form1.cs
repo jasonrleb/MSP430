@@ -154,7 +154,7 @@ namespace LAB3_GUI
             {
                 if (serialPort1.IsOpen && (!cbDCEnable.Checked || !cbStepperEnable.Checked))
                 {
-                    if ((chkByte1.Checked && (txtByte1.Text == "")) || (chkByte2.Checked && (txtByte2.Text == "")) || (chkByte3.Checked && (txtByte3.Text == "")) || (chkByte4.Checked && (txtByte4.Text == "")) || (chkByte5.Checked && (txtByte5.Text == "")) || (chkByte6.Checked && (txtByte6.Text != "")))
+                    if ((chkByte1.Checked && (txtByte1.Text == "")) || (chkByte2.Checked && (txtByte2.Text == "")) || (chkByte3.Checked && (txtByte3.Text == "")) || (chkByte4.Checked && (txtByte4.Text == "")) || (chkByte5.Checked && (txtByte5.Text == "")) || (chkByte6.Checked && (txtByte6.Text == "")))
                     {
                         MessageBox.Show("Occupy empty bytes...", "ERROR", 0);
                     }
