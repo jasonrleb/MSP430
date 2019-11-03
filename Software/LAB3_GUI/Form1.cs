@@ -152,48 +152,64 @@ namespace LAB3_GUI
 
             try
             {
-                if (serialPort1.IsOpen)
+                if (serialPort1.IsOpen && (!cbDCEnable.Checked || !cbStepperEnable.Checked))
                 {
-                    if (chkByte1.Checked && (txtByte1.Text != ""))
+                    if ((chkByte1.Checked && (txtByte1.Text == "")) || (chkByte2.Checked && (txtByte2.Text == "")) || (chkByte3.Checked && (txtByte3.Text == "")) || (chkByte4.Checked && (txtByte4.Text == "")) || (chkByte5.Checked && (txtByte5.Text == "")) || (chkByte6.Checked && (txtByte6.Text != "")))
                     {
-                        TxBytes[0] = Convert.ToByte(txtByte1.Text);
-                        serialPort1.Write(TxBytes, 0, 1);
-                        txtRawSerial.AppendText(TxBytes[0].ToString() + ", "); //prints to display box
+                        MessageBox.Show("Occupy empty bytes...", "ERROR", 0);
                     }
-                    if (chkByte2.Checked && (txtByte2.Text != ""))
-                    {
-                        TxBytes[1] = Convert.ToByte(txtByte2.Text);
-                        serialPort1.Write(TxBytes, 1, 1);
-                        txtRawSerial.AppendText(TxBytes[1].ToString() + ", ");
-                    }
-                    if (chkByte3.Checked && (txtByte3.Text != ""))
-                    {
-                        TxBytes[2] = Convert.ToByte(txtByte3.Text);
-                        serialPort1.Write(TxBytes, 2, 1);
-                        txtRawSerial.AppendText(TxBytes[2].ToString() + ", ");
-                    }
-                    if (chkByte4.Checked && (txtByte4.Text != ""))
-                    {
-                        TxBytes[3] = Convert.ToByte(txtByte4.Text);
-                        serialPort1.Write(TxBytes, 3, 1);
-                        txtRawSerial.AppendText(TxBytes[3].ToString() + ", ");
-                    }
-                    if (chkByte5.Checked && (txtByte5.Text != ""))
-                    {
-                        TxBytes[4] = Convert.ToByte(txtByte5.Text);
-                        serialPort1.Write(TxBytes, 4, 1);
-                        txtRawSerial.AppendText(TxBytes[4].ToString() + ", ");
-                    }
-                    if (chkByte6.Checked && (txtByte6.Text != ""))
-                    {
-                        TxBytes[5] = Convert.ToByte(txtByte6.Text);
-                        serialPort1.Write(TxBytes, 5, 1);
-                        txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
+                    else {
+                        if (chkByte1.Checked && (txtByte1.Text != ""))
+                        {
+                            TxBytes[0] = Convert.ToByte(txtByte1.Text);
+                            serialPort1.Write(TxBytes, 0, 1);
+                            txtRawSerial.AppendText(TxBytes[0].ToString() + ", "); //prints to display box
+                        }
+                        if (chkByte2.Checked && (txtByte2.Text != ""))
+                        {
+                            TxBytes[1] = Convert.ToByte(txtByte2.Text);
+                            serialPort1.Write(TxBytes, 1, 1);
+                            txtRawSerial.AppendText(TxBytes[1].ToString() + ", ");
+                        }
+                        if (chkByte3.Checked && (txtByte3.Text != ""))
+                        {
+                            TxBytes[2] = Convert.ToByte(txtByte3.Text);
+                            serialPort1.Write(TxBytes, 2, 1);
+                            txtRawSerial.AppendText(TxBytes[2].ToString() + ", ");
+                        }
+                        if (chkByte4.Checked && (txtByte4.Text != ""))
+                        {
+                            TxBytes[3] = Convert.ToByte(txtByte4.Text);
+                            serialPort1.Write(TxBytes, 3, 1);
+                            txtRawSerial.AppendText(TxBytes[3].ToString() + ", ");
+                        }
+                        if (chkByte5.Checked && (txtByte5.Text != ""))
+                        {
+                            TxBytes[4] = Convert.ToByte(txtByte5.Text);
+                            serialPort1.Write(TxBytes, 4, 1);
+                            txtRawSerial.AppendText(TxBytes[4].ToString() + ", ");
+                        }
+                        if (chkByte6.Checked && (txtByte6.Text != ""))
+                        {
+                            TxBytes[5] = Convert.ToByte(txtByte6.Text);
+                            serialPort1.Write(TxBytes, 5, 1);
+                            txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
+                        }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("No device connected...", "ERROR", 0);
+                else {
+                    if (serialPort1.IsOpen)
+                    {
+                        MessageBox.Show("No device connected...", "ERROR", 0);
+                    }
+                    if (cbStepperEnable.Checked)
+                    {
+                        MessageBox.Show("Disable Stepper motor mode...", "ERROR", 0);
+                    }
+                    if (cbDCEnable.Checked)
+                    {
+                        MessageBox.Show("Disable DC motor mode...", "ERROR", 0);
+                    }
                 }
             }
             catch (Exception Ex)
@@ -585,17 +601,18 @@ namespace LAB3_GUI
         //DC Mode Select
         private void BtDCMode_Click(object sender, EventArgs e)
         {
-            if (btDCMode.Text == "Pot")
-            {
-                btDCMode.Text = "Duty";
-                return;
-            }
+            //if (btDCMode.Text == "Pot")
+            //{
+            //    btDCMode.Text = "Duty";
+            //    return;
+            //}
 
-            if (btDCMode.Text == "Duty")
-            {
-                btDCMode.Text = "Pot";
-                return;
-            }
+            //if (btDCMode.Text == "Duty")
+            //{
+            //    btDCMode.Text = "Pot";
+            //    return;
+            //}
+            return;
         }
 
         //TIMER: Data Recieve & Buffer
