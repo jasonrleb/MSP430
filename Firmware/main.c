@@ -55,7 +55,7 @@ void setUART(void);
 void setADC(void);
 void setPotInput(void);
 
-volatile unsigned int usePot = 1; // 0 for PWM, 1 for potentiometer
+volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
 volatile unsigned int potVolt = 0; // store potentiometer voltage in here
 volatile unsigned int dutyCycle = 0;
 volatile unsigned int messageSize = 6; // for testing
@@ -99,7 +99,7 @@ int main(void)
 
                 dutyCycle = dataByte1 << 8 | dataByte2;
 
-                if (motorByte == 0) {// DC motor
+                if (motorByte == 0) { // DC motor
                     if (modeByte == 0) { // 0 to do nothing (was initially for pot)
                         __delay_cycles(100000);
                     }
@@ -121,6 +121,15 @@ int main(void)
                             TB0CCR2 = 65535;
                             P3OUT &= ~(BIT1 + BIT2);
                         }
+                    }
+                }
+
+                if (motorByte == 1) { // Stepper motor
+                    if (modeByte == 0) { // Single step
+                        __delay_cycles(100000);
+                    }
+                    else if (modeByte == 1) { // Continuous
+                        __delay_cycles(100000);
                     }
                 }
             }
