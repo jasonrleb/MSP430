@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.autoReconnectBox = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransmitToComPort = new System.Windows.Forms.Button();
@@ -87,6 +87,8 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.txtByte6 = new System.Windows.Forms.TextBox();
             this.chkByte6 = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbDirection = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctData)).BeginInit();
             this.SuspendLayout();
@@ -96,7 +98,7 @@
             this.autoReconnectBox.AutoSize = true;
             this.autoReconnectBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.autoReconnectBox.Location = new System.Drawing.Point(786, 105);
-            this.autoReconnectBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.autoReconnectBox.Margin = new System.Windows.Forms.Padding(8);
             this.autoReconnectBox.Name = "autoReconnectBox";
             this.autoReconnectBox.Size = new System.Drawing.Size(255, 36);
             this.autoReconnectBox.TabIndex = 23;
@@ -112,7 +114,7 @@
             // 
             this.btnTransmitToComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnTransmitToComPort.Location = new System.Drawing.Point(18, 310);
-            this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.btnTransmitToComPort.Margin = new System.Windows.Forms.Padding(8);
             this.btnTransmitToComPort.Name = "btnTransmitToComPort";
             this.btnTransmitToComPort.Size = new System.Drawing.Size(1030, 83);
             this.btnTransmitToComPort.TabIndex = 22;
@@ -124,7 +126,7 @@
             // 
             this.txtByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte5.Location = new System.Drawing.Point(706, 231);
-            this.txtByte5.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte5.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte5.Name = "txtByte5";
             this.txtByte5.Size = new System.Drawing.Size(150, 53);
             this.txtByte5.TabIndex = 20;
@@ -134,7 +136,7 @@
             // 
             this.txtByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte4.Location = new System.Drawing.Point(534, 231);
-            this.txtByte4.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte4.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte4.Name = "txtByte4";
             this.txtByte4.Size = new System.Drawing.Size(152, 53);
             this.txtByte4.TabIndex = 19;
@@ -144,7 +146,7 @@
             // 
             this.txtByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte3.Location = new System.Drawing.Point(362, 231);
-            this.txtByte3.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte3.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte3.Name = "txtByte3";
             this.txtByte3.Size = new System.Drawing.Size(152, 53);
             this.txtByte3.TabIndex = 18;
@@ -154,7 +156,7 @@
             // 
             this.txtByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte2.Location = new System.Drawing.Point(190, 231);
-            this.txtByte2.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte2.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte2.Name = "txtByte2";
             this.txtByte2.Size = new System.Drawing.Size(152, 53);
             this.txtByte2.TabIndex = 17;
@@ -164,7 +166,7 @@
             // 
             this.txtByte1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte1.Location = new System.Drawing.Point(18, 231);
-            this.txtByte1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte1.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte1.Name = "txtByte1";
             this.txtByte1.Size = new System.Drawing.Size(152, 53);
             this.txtByte1.TabIndex = 16;
@@ -175,7 +177,7 @@
             this.chkByte3.AutoSize = true;
             this.chkByte3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte3.Location = new System.Drawing.Point(362, 167);
-            this.chkByte3.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte3.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte3.Name = "chkByte3";
             this.chkByte3.Size = new System.Drawing.Size(149, 36);
             this.chkByte3.TabIndex = 15;
@@ -188,7 +190,7 @@
             this.chkByte2.AutoSize = true;
             this.chkByte2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte2.Location = new System.Drawing.Point(190, 167);
-            this.chkByte2.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte2.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte2.Name = "chkByte2";
             this.chkByte2.Size = new System.Drawing.Size(149, 36);
             this.chkByte2.TabIndex = 14;
@@ -201,7 +203,7 @@
             this.chkByte1.AutoSize = true;
             this.chkByte1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte1.Location = new System.Drawing.Point(18, 167);
-            this.chkByte1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte1.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte1.Name = "chkByte1";
             this.chkByte1.Size = new System.Drawing.Size(149, 36);
             this.chkByte1.TabIndex = 13;
@@ -220,12 +222,16 @@
             this.lblIncomingDataRate.TabIndex = 8;
             this.lblIncomingDataRate.Text = "Incoming data rate = 0 [byte/s]";
             // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
             // chkShowResponse
             // 
             this.chkShowResponse.AutoSize = true;
             this.chkShowResponse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkShowResponse.Location = new System.Drawing.Point(354, 105);
-            this.chkShowResponse.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkShowResponse.Margin = new System.Windows.Forms.Padding(8);
             this.chkShowResponse.Name = "chkShowResponse";
             this.chkShowResponse.Size = new System.Drawing.Size(369, 36);
             this.chkShowResponse.TabIndex = 12;
@@ -236,7 +242,7 @@
             // 
             this.txtRawSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRawSerial.Location = new System.Drawing.Point(24, 841);
-            this.txtRawSerial.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtRawSerial.Margin = new System.Windows.Forms.Padding(8);
             this.txtRawSerial.Multiline = true;
             this.txtRawSerial.Name = "txtRawSerial";
             this.txtRawSerial.Size = new System.Drawing.Size(2158, 142);
@@ -248,7 +254,7 @@
             this.btnConnect.Image = ((System.Drawing.Image)(resources.GetObject("btnConnect.Image")));
             this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(133, 55);
+            this.btnConnect.Size = new System.Drawing.Size(133, 45);
             this.btnConnect.Text = "Connect";
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -257,7 +263,7 @@
             this.chkByte4.AutoSize = true;
             this.chkByte4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte4.Location = new System.Drawing.Point(534, 167);
-            this.chkByte4.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte4.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte4.Name = "chkByte4";
             this.chkByte4.Size = new System.Drawing.Size(149, 36);
             this.chkByte4.TabIndex = 11;
@@ -269,7 +275,7 @@
             // 
             this.txtBaudRate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtBaudRate.Name = "txtBaudRate";
-            this.txtBaudRate.Size = new System.Drawing.Size(180, 52);
+            this.txtBaudRate.Size = new System.Drawing.Size(180, 62);
             this.txtBaudRate.Text = "9600";
             // 
             // chkByte5
@@ -277,7 +283,7 @@
             this.chkByte5.AutoSize = true;
             this.chkByte5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte5.Location = new System.Drawing.Point(706, 167);
-            this.chkByte5.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte5.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte5.Name = "chkByte5";
             this.chkByte5.Size = new System.Drawing.Size(149, 36);
             this.chkByte5.TabIndex = 10;
@@ -288,13 +294,13 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(159, 45);
+            this.toolStripLabel1.Size = new System.Drawing.Size(159, 55);
             this.toolStripLabel1.Text = "Baud Rate:";
             // 
             // cmbComPort
             // 
             this.cmbComPort.Name = "cmbComPort";
-            this.cmbComPort.Size = new System.Drawing.Size(314, 52);
+            this.cmbComPort.Size = new System.Drawing.Size(314, 62);
             this.cmbComPort.DropDown += new System.EventHandler(this.cmbComPort_DropDown);
             // 
             // label1
@@ -319,7 +325,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 4, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(2232, 62);
+            this.toolStrip1.Size = new System.Drawing.Size(2232, 52);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -515,30 +521,30 @@
             // 
             // ctData
             // 
-            chartArea2.Name = "ChartArea1";
-            this.ctData.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            legend2.Position.Auto = false;
-            legend2.Position.Height = 12.70903F;
-            legend2.Position.Width = 25.41806F;
-            legend2.Position.X = 20F;
-            legend2.Position.Y = 3F;
-            this.ctData.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.ctData.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            legend3.Position.Auto = false;
+            legend3.Position.Height = 12.70903F;
+            legend3.Position.Width = 25.41806F;
+            legend3.Position.X = 20F;
+            legend3.Position.Y = 3F;
+            this.ctData.Legends.Add(legend3);
             this.ctData.Location = new System.Drawing.Point(1094, 66);
-            this.ctData.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.ctData.Margin = new System.Windows.Forms.Padding(8);
             this.ctData.Name = "ctData";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.LegendText = "[rpm]";
-            series3.Name = "RPM";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Legend = "Legend1";
-            series4.LegendText = "[Hz]";
-            series4.Name = "Hz";
-            this.ctData.Series.Add(series3);
-            this.ctData.Series.Add(series4);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Legend = "Legend1";
+            series5.LegendText = "RPM [rev/s]";
+            series5.Name = "RPM";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Legend = "Legend1";
+            series6.LegendText = "Position [counts]";
+            series6.Name = "Position";
+            this.ctData.Series.Add(series5);
+            this.ctData.Series.Add(series6);
             this.ctData.Size = new System.Drawing.Size(1094, 581);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
@@ -546,7 +552,7 @@
             // tbPosition
             // 
             this.tbPosition.Location = new System.Drawing.Point(1914, 680);
-            this.tbPosition.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.tbPosition.Margin = new System.Windows.Forms.Padding(8);
             this.tbPosition.Name = "tbPosition";
             this.tbPosition.Size = new System.Drawing.Size(116, 38);
             this.tbPosition.TabIndex = 46;
@@ -554,7 +560,7 @@
             // tbVelocity
             // 
             this.tbVelocity.Location = new System.Drawing.Point(1914, 742);
-            this.tbVelocity.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.tbVelocity.Margin = new System.Windows.Forms.Padding(8);
             this.tbVelocity.Name = "tbVelocity";
             this.tbVelocity.Size = new System.Drawing.Size(116, 38);
             this.tbVelocity.TabIndex = 47;
@@ -595,9 +601,9 @@
             this.label11.Location = new System.Drawing.Point(2054, 748);
             this.label11.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(99, 32);
+            this.label11.Size = new System.Drawing.Size(79, 32);
             this.label11.TabIndex = 52;
-            this.label11.Text = "[mm/s]";
+            this.label11.Text = "[rpm]";
             // 
             // label12
             // 
@@ -605,9 +611,9 @@
             this.label12.Location = new System.Drawing.Point(2054, 690);
             this.label12.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(134, 32);
+            this.label12.Size = new System.Drawing.Size(101, 32);
             this.label12.TabIndex = 51;
-            this.label12.Text = "[degrees]";
+            this.label12.Text = "[count]";
             // 
             // label13
             // 
@@ -622,13 +628,14 @@
             // 
             // timer2
             // 
+            this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // txtByte6
             // 
             this.txtByte6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtByte6.Location = new System.Drawing.Point(876, 231);
-            this.txtByte6.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtByte6.Margin = new System.Windows.Forms.Padding(8);
             this.txtByte6.Name = "txtByte6";
             this.txtByte6.Size = new System.Drawing.Size(152, 53);
             this.txtByte6.TabIndex = 55;
@@ -639,7 +646,7 @@
             this.chkByte6.AutoSize = true;
             this.chkByte6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.chkByte6.Location = new System.Drawing.Point(876, 167);
-            this.chkByte6.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.chkByte6.Margin = new System.Windows.Forms.Padding(8);
             this.chkByte6.Name = "chkByte6";
             this.chkByte6.Size = new System.Drawing.Size(149, 36);
             this.chkByte6.TabIndex = 54;
@@ -647,11 +654,31 @@
             this.chkByte6.UseVisualStyleBackColor = true;
             this.chkByte6.CheckedChanged += new System.EventHandler(this.chkByte6_CheckedChanged);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1484, 745);
+            this.label15.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(128, 32);
+            this.label15.TabIndex = 59;
+            this.label15.Text = "Direction";
+            // 
+            // tbDirection
+            // 
+            this.tbDirection.Location = new System.Drawing.Point(1628, 742);
+            this.tbDirection.Margin = new System.Windows.Forms.Padding(8);
+            this.tbDirection.Name = "tbDirection";
+            this.tbDirection.Size = new System.Drawing.Size(116, 38);
+            this.tbDirection.TabIndex = 58;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2232, 1114);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.txtByte6);
             this.Controls.Add(this.chkByte6);
             this.Controls.Add(this.label13);
@@ -765,6 +792,8 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox txtByte6;
         private System.Windows.Forms.CheckBox chkByte6;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbDirection;
     }
 }
 
