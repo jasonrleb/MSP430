@@ -49,47 +49,22 @@ char dequeue(struct Queue* theQueue) {
     return item;
 }
 
-struct Queue* queue;
-
-volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
-volatile unsigned int potVolt = 0; // store potentiometer voltage in here
-volatile unsigned int dutyCycle = 0;
-volatile unsigned int messageSize = 6; // for testing
-volatile unsigned int sizeOfQueue;
-volatile unsigned int stateVariable = 0; // range 0 - 7 starting at 0
-volatile unsigned int sequence[8][4] = {
-                                     {{1, 0, 0, 0}},
-                                     {{1, 0, 1, 0}},
-                                     {{0, 0, 1, 0}},
-                                     {{0, 1, 1, 0}},
-                                     {{0, 1, 0, 0}},
-                                     {{0, 1, 0, 1}},
-                                     {{0, 0, 0, 1}},
-                                     {{1, 0, 0, 1}}};
-volatile unsigned int delay = 0; // delay between stepper pulses
-
-void increaseStateVariable() {
-    stateVariable++;
-    if (stateVariable == 8) // reached maximum
-        stateVariable == 0;
-}
-
-void decreaseStateVariable() {
-    stateVariable--;
-    if (stateVariable < 0) // reached minimum
-        stateVariable == 7;
-}
-
 void setClk(void);
 void setTimer(void);
 void setUART(void);
 void setADC(void);
 void setPotInput(void);
 
+volatile unsigned int usePot = 0; // 0 for PWM, 1 for potentiometer
+volatile unsigned int potVolt = 0; // store potentiometer voltage in here
+volatile unsigned int dutyCycle = 0;
+volatile unsigned int messageSize = 6; // for testing
+volatile unsigned int sizeOfQueue;
+
+struct Queue* queue;
+
 int main(void)
 {
-    int i = 0;
-
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
     setClk();
     setTimer();
@@ -100,8 +75,6 @@ int main(void)
     _EINT(); // enable global interrupts
 
     queue = createQueue(messageSize); // message size
-
-    // Verification output pins (connect to LEDs)
     P3DIR |= BIT1 + BIT2;
     P3OUT &= ~(BIT1 + BIT2);
 
@@ -118,6 +91,10 @@ int main(void)
         if (queue->size >= messageSize) {
             char startByte = dequeue(queue);
             if (startByte == 255) { // data format: [start][motor][mode][direction][data1][data2][end]
+
+                P3OUT |= BIT1;
+                P3OUT &= ~BIT2;
+
                 char motorByte = dequeue(queue); // select DC or stepper
                 char modeByte = dequeue(queue); // select potentiometer or PWM
                 char directionByte = dequeue(queue);
@@ -126,7 +103,7 @@ int main(void)
 
                 dutyCycle = dataByte1 << 8 | dataByte2;
 
-                if (motorByte == 0) { // DC motor
+                if (motorByte == 0) {// DC motor
                     if (modeByte == 0) { // 0 to do nothing (was initially for pot)
                         __delay_cycles(100000);
                     }
@@ -147,39 +124,6 @@ int main(void)
                             TB0CCR1 = 65535;
                             TB0CCR2 = 65535;
                             P3OUT &= ~(BIT1 + BIT2);
-                        }
-                    }
-                }
-
-                if (motorByte == 1) { // stepper motor
-                    if (modeByte == 0) { // single step
-                        P1OUT = sequence[stateVariable][0] << 5; // shift sequence to P1.5
-                        P1OUT = sequence[stateVariable][1] << 4; // shift sequence to P1.4
-                        P3OUT = sequence[stateVariable][2] << 4; // shift sequence to P3.4
-                        P3OUT = sequence[stateVariable][3] << 5; // shift sequence to P3.5
-
-                        if (directionByte == 0) // CW
-                            increaseStateVariable();
-                        else if (directionByte == 1) // CCW
-                            decreaseStateVariable();
-                        else if (directionByte == 2) // STOP
-                            __delay_cycles(100000);
-
-                    }
-                    else if (modeByte == 1) { // continuous
-                        delay = dutyCycle / (65536) * 10000; // adjust delay based on speed
-                        P1OUT = sequence[stateVariable][0] << 5; // shift sequence to P1.5
-                        P1OUT = sequence[stateVariable][1] << 4; // shift sequence to P1.4
-                        P3OUT = sequence[stateVariable][2] << 4; // shift sequence to P3.4
-                        P3OUT = sequence[stateVariable][3] << 5; // shift sequence to P3.5
-
-                        for (i = 0; i < delay; i++){
-                            if (directionByte == 0) // CW
-                                increaseStateVariable();
-                            else if (directionByte == 1) // CCW
-                                decreaseStateVariable();
-                            else if (directionByte == 2) // STOP
-                                __delay_cycles(100000);
                         }
                     }
                 }
