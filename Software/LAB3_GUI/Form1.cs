@@ -682,9 +682,11 @@ namespace LAB3_GUI
             totalCount += ccwEncoder - cwEncoder;
 
             position = totalCount % 2000; //400 counts per rev
+            position = Math.Abs(position);
             tbPosition.Text = Convert.ToString(position);
 
-            velocity = (totalCount - previousTotalCount) * 10 * 60 / 2000;    // rpm
+            velocity = (totalCount - previousTotalCount) * 2 * 10 * 60 / 2000;    // rpm
+            velocity = Math.Abs(velocity);
             tbVelocity.Text = Convert.ToString(velocity);
 
             if (velocity > 0)
@@ -694,8 +696,8 @@ namespace LAB3_GUI
             if (velocity == 0)
                 tbDirection.Text = "Stopped";
 
-            velocity = Math.Abs(velocity);
-            position = Math.Abs(position);
+            
+            
 
             ctData.Series["RPM"].Points.AddY(velocity);
             ctData.Series["Position"].Points.AddY(position);

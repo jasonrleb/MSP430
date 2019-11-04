@@ -1,0 +1,15 @@
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\LAB3_GUI.exe.config
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\LAB3_GUI.exe
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\LAB3_GUI.pdb
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\CsvHelper.dll
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\System.ValueTuple.dll
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\CsvHelper.xml
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\bin\Release\System.ValueTuple.xml
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.csprojAssemblyReference.cache
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.Form1.resources
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.Properties.Resources.resources
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.csproj.GenerateResource.cache
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.csproj.CoreCompileInputs.cache
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.csproj.CopyComplete
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.exe
+C:\Users\JasonsRazer\Dropbox\Notes\MECH 423 - Mechatronic Product Design\LAB\MSP430\Software\LAB3_GUI\obj\Release\LAB3_GUI.pdb
