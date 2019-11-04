@@ -652,8 +652,7 @@ namespace LAB3_GUI
         }
 
         //TIMER: Data Recieve & Buffer
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
+        private void Timer2_Tick(object sender, EventArgs e)      {
             if (chkShowResponse.Checked)
             {
                 txtRawSerial.AppendText("255" + ", ");
