@@ -20,7 +20,14 @@ namespace LAB3_GUI
         public int numberOfDataPoints = 0;
 
         //PLOT Variables
-        int plotLimit = 20;
+        int plotLimit = 30;
+        int cwEncoder = 0;
+        int ccwEncoder = 0;
+        int escEncoder = 0;
+        int totalCount = 0;
+        int position = 0;
+        double velocity = 0.0;
+        int previousTotalCount = 0;
 
         ConcurrentQueue<int> encoderQueue = new ConcurrentQueue<int>();
 
@@ -44,7 +51,7 @@ namespace LAB3_GUI
         private void Form1_Load_1(object sender, EventArgs e)
         {
             lblIncomingDataRate.Visible = false;
-            chkShowResponse.Checked = true;
+            chkShowResponse.Checked = false;
             chkByte1.Checked = false;
             chkByte2.Checked = false;
             chkByte3.Checked = false;
@@ -152,48 +159,64 @@ namespace LAB3_GUI
 
             try
             {
-                if (serialPort1.IsOpen)
+                if (serialPort1.IsOpen && (!cbDCEnable.Checked || !cbStepperEnable.Checked))
                 {
-                    if (chkByte1.Checked && (txtByte1.Text != ""))
+                    if ((chkByte1.Checked && (txtByte1.Text == "")) || (chkByte2.Checked && (txtByte2.Text == "")) || (chkByte3.Checked && (txtByte3.Text == "")) || (chkByte4.Checked && (txtByte4.Text == "")) || (chkByte5.Checked && (txtByte5.Text == "")) || (chkByte6.Checked && (txtByte6.Text == "")))
                     {
-                        TxBytes[0] = Convert.ToByte(txtByte1.Text);
-                        serialPort1.Write(TxBytes, 0, 1);
-                        txtRawSerial.AppendText(TxBytes[0].ToString() + ", "); //prints to display box
+                        MessageBox.Show("Occupy empty bytes...", "ERROR", 0);
                     }
-                    if (chkByte2.Checked && (txtByte2.Text != ""))
-                    {
-                        TxBytes[1] = Convert.ToByte(txtByte2.Text);
-                        serialPort1.Write(TxBytes, 1, 1);
-                        txtRawSerial.AppendText(TxBytes[1].ToString() + ", ");
-                    }
-                    if (chkByte3.Checked && (txtByte3.Text != ""))
-                    {
-                        TxBytes[2] = Convert.ToByte(txtByte3.Text);
-                        serialPort1.Write(TxBytes, 2, 1);
-                        txtRawSerial.AppendText(TxBytes[2].ToString() + ", ");
-                    }
-                    if (chkByte4.Checked && (txtByte4.Text != ""))
-                    {
-                        TxBytes[3] = Convert.ToByte(txtByte4.Text);
-                        serialPort1.Write(TxBytes, 3, 1);
-                        txtRawSerial.AppendText(TxBytes[3].ToString() + ", ");
-                    }
-                    if (chkByte5.Checked && (txtByte5.Text != ""))
-                    {
-                        TxBytes[4] = Convert.ToByte(txtByte5.Text);
-                        serialPort1.Write(TxBytes, 4, 1);
-                        txtRawSerial.AppendText(TxBytes[4].ToString() + ", ");
-                    }
-                    if (chkByte6.Checked && (txtByte6.Text != ""))
-                    {
-                        TxBytes[5] = Convert.ToByte(txtByte6.Text);
-                        serialPort1.Write(TxBytes, 5, 1);
-                        txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
+                    else {
+                        if (chkByte1.Checked && (txtByte1.Text != ""))
+                        {
+                            TxBytes[0] = Convert.ToByte(txtByte1.Text);
+                            serialPort1.Write(TxBytes, 0, 1);
+                            txtRawSerial.AppendText(TxBytes[0].ToString() + ", "); //prints to display box
+                        }
+                        if (chkByte2.Checked && (txtByte2.Text != ""))
+                        {
+                            TxBytes[1] = Convert.ToByte(txtByte2.Text);
+                            serialPort1.Write(TxBytes, 1, 1);
+                            txtRawSerial.AppendText(TxBytes[1].ToString() + ", ");
+                        }
+                        if (chkByte3.Checked && (txtByte3.Text != ""))
+                        {
+                            TxBytes[2] = Convert.ToByte(txtByte3.Text);
+                            serialPort1.Write(TxBytes, 2, 1);
+                            txtRawSerial.AppendText(TxBytes[2].ToString() + ", ");
+                        }
+                        if (chkByte4.Checked && (txtByte4.Text != ""))
+                        {
+                            TxBytes[3] = Convert.ToByte(txtByte4.Text);
+                            serialPort1.Write(TxBytes, 3, 1);
+                            txtRawSerial.AppendText(TxBytes[3].ToString() + ", ");
+                        }
+                        if (chkByte5.Checked && (txtByte5.Text != ""))
+                        {
+                            TxBytes[4] = Convert.ToByte(txtByte5.Text);
+                            serialPort1.Write(TxBytes, 4, 1);
+                            txtRawSerial.AppendText(TxBytes[4].ToString() + ", ");
+                        }
+                        if (chkByte6.Checked && (txtByte6.Text != ""))
+                        {
+                            TxBytes[5] = Convert.ToByte(txtByte6.Text);
+                            serialPort1.Write(TxBytes, 5, 1);
+                            txtRawSerial.AppendText(TxBytes[5].ToString() + ", ");
+                        }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("No device connected...", "ERROR", 0);
+                else {
+                    if (serialPort1.IsOpen)
+                    {
+                        MessageBox.Show("No device connected...", "ERROR", 0);
+                    }
+                    if (cbStepperEnable.Checked)
+                    {
+                        MessageBox.Show("Disable Stepper motor mode...", "ERROR", 0);
+                    }
+                    if (cbDCEnable.Checked)
+                    {
+                        MessageBox.Show("Disable DC motor mode...", "ERROR", 0);
+                    }
                 }
             }
             catch (Exception Ex)
@@ -272,28 +295,57 @@ namespace LAB3_GUI
         //Receive Data
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            int currentByte = 0;
-            while (serialPort1.IsOpen && serialPort1.BytesToRead != 0)
-            {
-                currentByte = serialPort1.ReadByte();
-                numberOfDataPoints++;
-                if (chkShowResponse.Checked)
-                    this.BeginInvoke(new EventHandler(delegate
-                    {
-                        txtRawSerial.AppendText(currentByte.ToString() + ", ");
-                    }));
+            //int currentByte = 0;
+            //while (serialPort1.IsOpen && serialPort1.BytesToRead != 0)
+            //{
+            //    currentByte = serialPort1.ReadByte();
+            //    numberOfDataPoints++;
+            //    if (chkShowResponse.Checked)
+            //        this.BeginInvoke(new EventHandler(delegate
+            //        {
+            //            txtRawSerial.AppendText(currentByte + ", ");
+            //        }));
+            //}
 
-                if (currentByte == 255)
+            //    if (currentByte == 255)
+            //    {
+
+            //    }
+
+
+
+
+            while ((serialPort1.BytesToRead > 0) && serialPort1.IsOpen) //collects data from serial port and stores in queue
+            {
+                try
                 {
 
+                    if (serialPort1.ReadByte() == 255)
+                    {
+                        cwEncoder = serialPort1.ReadByte();
+                        ccwEncoder = serialPort1.ReadByte();
+                        escEncoder = serialPort1.ReadByte();
+
+                    }
+
+
+                    serialPort1.DiscardInBuffer(); //clears VS buffer so data collection stops in the background
+                                                   //BytesToRead = 0;
                 }
+
+                //error handlers
+                catch (System.InvalidOperationException) { }
+                catch (System.IO.IOException) { }
 
             }
 
-
-
-
         }
+
+
+
+
+
+        
 
         //Sets stepper direction: CW / CCW
         private void BtStepperDir_Click(object sender, EventArgs e)
@@ -585,44 +637,150 @@ namespace LAB3_GUI
         //DC Mode Select
         private void BtDCMode_Click(object sender, EventArgs e)
         {
-            if (btDCMode.Text == "Pot")
-            {
-                btDCMode.Text = "Duty";
-                return;
-            }
+            //if (btDCMode.Text == "Pot")
+            //{
+            //    btDCMode.Text = "Duty";
+            //    return;
+            //}
 
-            if (btDCMode.Text == "Duty")
-            {
-                btDCMode.Text = "Pot";
-                return;
-            }
+            //if (btDCMode.Text == "Duty")
+            //{
+            //    btDCMode.Text = "Pot";
+            //    return;
+            //}
+            return;
         }
 
         //TIMER: Data Recieve & Buffer
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            //if (serialPort1.IsOpen)
-            //{
+            if (chkShowResponse.Checked)
+            {
+                txtRawSerial.AppendText("255" + ", ");
+                txtRawSerial.AppendText(cwEncoder.ToString() + ", ");
+                txtRawSerial.AppendText(ccwEncoder.ToString() + ", ");
+                txtRawSerial.AppendText(escEncoder.ToString() + ", ");
+            }
 
-            //    //DATA: Encoder & Plots
-            //    while (encoderQueue.Count != 0)
-            //    {
-            //        encoderQueue.TryDequeue(out X);
-            //        if (X != 0)
-            //        {
-            //            tbXAxis.Text = X.ToString();
-            //            ctData.Series["X Accel"].Points.Add(X);
-            //        }
-            //    }
+            //Handle escape byte conversion of data
+            if(escEncoder == 1)
+            {
+                cwEncoder = 255;
+            }
+            else if(escEncoder == 2)
+            {
+                ccwEncoder = 255;
+            }
+            else if(escEncoder == 3)
+            {
+                cwEncoder = 255;
+                ccwEncoder = 255;
+            }
 
-            //    //PLOT CONTROL
-            //    if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
-            //    {
-            //        ctData.Series["RPM"].Points.RemoveAt(0);
-            //        ctData.Series["Hz"].Points.RemoveAt(0);
-            //    }
-            //}
+            //Calculate Position & Velocity
+            previousTotalCount = totalCount;
+            totalCount += ccwEncoder - cwEncoder;
+
+            position = totalCount % 2000; //400 counts per rev
+            tbPosition.Text = Convert.ToString(position);
+
+            velocity = (totalCount - previousTotalCount) * 10 * 60 / 2000;    // rpm
+            tbVelocity.Text = Convert.ToString(velocity);
+
+            if (velocity > 0)
+                tbDirection.Text = "CW";
+            if(velocity < 0)
+                tbDirection.Text = "CCW";
+            if (velocity == 0)
+                tbDirection.Text = "Stopped";
+
+            velocity = Math.Abs(velocity);
+            position = Math.Abs(position);
+
+            ctData.Series["RPM"].Points.AddY(velocity);
+            ctData.Series["Position"].Points.AddY(position);
+
+            //PLOT CONTROL
+            if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
+            {
+                ctData.Series["RPM"].Points.RemoveAt(0);
+                ctData.Series["Position"].Points.RemoveAt(0);
+                ctData.ChartAreas[0].AxisY.Maximum = 2000;
+                ctData.ChartAreas[0].AxisY.Minimum = 0;
+            }
         }
-
     }
+
 }
+
+
+
+
+        // Average all new data from serial buffer accumulated w/i time interval
+
+//        private void processData()
+//        {
+//            var objPositionSeries = chartPosition.Series["Position"];
+//            var objVelocitySeries = chartVelocity.Series["Velocity"];
+
+//            while (dataQueue.Count > 0)
+//            {
+//                int data;
+//                dataQueue.TryDequeue(out data);
+//                if (data == 255 && count == 0)
+//                {
+//                    ++count;
+//                }
+//                else if (count == 1)
+//                {
+//                    ref1 = data;
+//                    ++count;
+//                }
+//                else if (count == 2)
+//                {
+//                    ref2 = data;
+//                    ++count;
+//                }
+//                else if (count == 3)
+//                {
+//                    if (data == 1) { ref1 = 255; }
+//                    else if (data == 2)
+//                    {
+//                        ref2 = 255;
+//                    }
+//                    else if (data == 3)
+//                    {
+//                        ref1 = 255;
+//                        ref2 = 255;
+//                    }
+//                    count = 0;
+//                    previousTotalCount = totalCount;
+//                    previousPosition = position;
+
+//                    totalCount += ref1 - ref2;
+//                    position = totalCount % 400;         // encoder counts per revolution
+//                    velocity = (totalCount - previousTotalCount) * 45.75 * 60 / 100;    // rpm
+//                    if (velocity > 0)
+//                        txtDirection.Text = "CW";
+//                    else
+//                        txtDirection.Text = "CCW";
+
+//                    objPositionSeries.Points.AddY(position);
+//                    objVelocitySeries.Points.AddY(velocity);
+
+//                    if (objPositionSeries.Points.Count() > maxPlotWidth)
+//                    {
+//                        objPositionSeries.Points.RemoveAt(0);
+//                        objVelocitySeries.Points.RemoveAt(0);
+//                    }
+
+//                    // Display it on the text boxes
+//                    txtPosition.Text = Convert.ToString(position);
+//                    txtRPM.Text = Convert.ToString(velocity);
+//                    txtHz.Text = Convert.ToString(velocity / 60);
+//                }
+//            }
+//        }
+//    }
+//}
+
