@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.autoReconnectBox = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransmitToComPort = new System.Windows.Forms.Button();
@@ -88,7 +88,10 @@
             this.chkByte6 = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tbDirection = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.CbSaveToFile = new System.Windows.Forms.CheckBox();
+            this.tbFileName = new System.Windows.Forms.TextBox();
+            this.btSaveFile = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctData)).BeginInit();
             this.SuspendLayout();
@@ -521,30 +524,30 @@
             // 
             // ctData
             // 
-            chartArea1.Name = "ChartArea1";
-            this.ctData.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            legend1.Position.Auto = false;
-            legend1.Position.Height = 12.70903F;
-            legend1.Position.Width = 25.41806F;
-            legend1.Position.X = 20F;
-            legend1.Position.Y = 3F;
-            this.ctData.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.ctData.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            legend2.Position.Auto = false;
+            legend2.Position.Height = 12.70903F;
+            legend2.Position.Width = 25.41806F;
+            legend2.Position.X = 20F;
+            legend2.Position.Y = 3F;
+            this.ctData.Legends.Add(legend2);
             this.ctData.Location = new System.Drawing.Point(1094, 66);
             this.ctData.Margin = new System.Windows.Forms.Padding(8);
             this.ctData.Name = "ctData";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.LegendText = "RPM [rev/s]";
-            series1.Name = "RPM";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.LegendText = "Position [counts]";
-            series2.Name = "Position";
-            this.ctData.Series.Add(series1);
-            this.ctData.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Legend = "Legend1";
+            series3.LegendText = "RPM [rev/s]";
+            series3.Name = "RPM";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Legend = "Legend1";
+            series4.LegendText = "Position [counts]";
+            series4.Name = "Position";
+            this.ctData.Series.Add(series3);
+            this.ctData.Series.Add(series4);
             this.ctData.Size = new System.Drawing.Size(1094, 581);
             this.ctData.TabIndex = 45;
             this.ctData.Text = "chart1";
@@ -661,27 +664,57 @@
             this.tbDirection.Size = new System.Drawing.Size(116, 38);
             this.tbDirection.TabIndex = 58;
             // 
-            // label13
+            // label14
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label13.Location = new System.Drawing.Point(32, 1023);
-            this.label13.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(264, 32);
-            this.label13.TabIndex = 53;
-            this.label13.Text = "Data logging here...";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(64, 1007);
+            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(282, 32);
+            this.label14.TabIndex = 63;
+            this.label14.Text = "Enable Data Logging";
+            // 
+            // CbSaveToFile
+            // 
+            this.CbSaveToFile.Location = new System.Drawing.Point(24, 997);
+            this.CbSaveToFile.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.CbSaveToFile.Name = "CbSaveToFile";
+            this.CbSaveToFile.Size = new System.Drawing.Size(74, 52);
+            this.CbSaveToFile.TabIndex = 60;
+            this.CbSaveToFile.CheckedChanged += new System.EventHandler(this.CbSaveToFile_CheckedChanged);
+            // 
+            // tbFileName
+            // 
+            this.tbFileName.Location = new System.Drawing.Point(24, 1059);
+            this.tbFileName.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.tbFileName.Name = "tbFileName";
+            this.tbFileName.Size = new System.Drawing.Size(315, 38);
+            this.tbFileName.TabIndex = 61;
+            this.tbFileName.Text = "Enter Output Filename...";
+            // 
+            // btSaveFile
+            // 
+            this.btSaveFile.Location = new System.Drawing.Point(362, 1007);
+            this.btSaveFile.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.btSaveFile.Name = "btSaveFile";
+            this.btSaveFile.Size = new System.Drawing.Size(240, 94);
+            this.btSaveFile.TabIndex = 62;
+            this.btSaveFile.Text = "SAVE FILE";
+            this.btSaveFile.Click += new System.EventHandler(this.BtSaveFile_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2232, 1114);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.CbSaveToFile);
+            this.Controls.Add(this.tbFileName);
+            this.Controls.Add(this.btSaveFile);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.txtByte6);
             this.Controls.Add(this.chkByte6);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
@@ -793,7 +826,10 @@
         private System.Windows.Forms.CheckBox chkByte6;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tbDirection;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox CbSaveToFile;
+        private System.Windows.Forms.TextBox tbFileName;
+        private System.Windows.Forms.Button btSaveFile;
     }
 }
 

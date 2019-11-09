@@ -29,6 +29,10 @@ namespace LAB3_GUI
         double velocity = 0.0;
         int previousTotalCount = 0;
 
+        //DATA LOGGING Variables
+        string filename = "";
+        string filepath = "";
+
         ConcurrentQueue<int> encoderQueue = new ConcurrentQueue<int>();
 
         public Form1()
@@ -340,11 +344,6 @@ namespace LAB3_GUI
             }
 
         }
-
-
-
-
-
         
 
         //Sets stepper direction: CW / CCW
@@ -651,7 +650,8 @@ namespace LAB3_GUI
             return;
         }
 
-        //TIMER: Data Recieve & Buffer
+
+        //TIMER: Data Recieve & Buffer / Plotting / Data Logging
         private void Timer2_Tick(object sender, EventArgs e)      {
             if (chkShowResponse.Checked)
             {
@@ -680,13 +680,13 @@ namespace LAB3_GUI
             previousTotalCount = totalCount;
             totalCount += ccwEncoder - cwEncoder;
 
-            position = totalCount % 2000; //400 counts per rev
-            position = Math.Abs(position);
-            tbPosition.Text = Convert.ToString(position);
+            position = totalCount % 240; //240 counts per rev
+            int positionDisp = Math.Abs(position);
+            tbPosition.Text = Convert.ToString(positionDisp);
 
-            velocity = (totalCount - previousTotalCount) * 2 * 10 * 60 / 2000;    // rpm
-            velocity = Math.Abs(velocity);
-            tbVelocity.Text = Convert.ToString(velocity);
+            velocity = (totalCount - previousTotalCount) * 95 / 100 * 10 * 60 / 240;    // rpm
+            double velocityDisp = Math.Abs(velocity);
+            tbVelocity.Text = Convert.ToString(velocityDisp);
 
             if (velocity > 0)
                 tbDirection.Text = "CW";
@@ -694,9 +694,6 @@ namespace LAB3_GUI
                 tbDirection.Text = "CCW";
             if (velocity == 0)
                 tbDirection.Text = "Stopped";
-
-            
-            
 
             ctData.Series["RPM"].Points.AddY(velocity);
             ctData.Series["Position"].Points.AddY(position);
@@ -706,10 +703,75 @@ namespace LAB3_GUI
             {
                 ctData.Series["RPM"].Points.RemoveAt(0);
                 ctData.Series["Position"].Points.RemoveAt(0);
-                ctData.ChartAreas[0].AxisY.Maximum = 2000;
+                ctData.ChartAreas[0].AxisY.Maximum = 240;
                 ctData.ChartAreas[0].AxisY.Minimum = 0;
             }
+
+
+            //DATA LOGGING
+            if (!(tbFileName.Text == "Enter Output Filename..."))
+            {
+                filename = tbFileName.Text;
+
+                if (CbSaveToFile.Checked)
+                {
+                    filepath = "C:\\Users\\JasonsRazer\\Desktop\\" + filename + ".csv";
+                    logData(position, (int)velocity, filepath);
+                }
+            }
         }
+
+
+        //DATA LOG ENABLE CHECKBOX
+        private void CbSaveToFile_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CbSaveToFile.Checked && tbFileName.Text == "Enter Output Filename...")
+            {
+                MessageBox.Show("No Output Filename provided...", "ERROR", 0);
+                CbSaveToFile.Checked = false;
+            }
+            if (!CbSaveToFile.Checked)
+            {
+                tbFileName.Text = "Enter Output Filename...";
+            }
+        }
+
+
+        //DATA LOG SAVE
+        private void BtSaveFile_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                MessageBox.Show("No device connected...", "ERROR", 0);
+            }
+            else
+            {
+                MessageBox.Show("File saved to Desktop", "SAVE", 0);
+                //SaveFileDialog dialogBox = new SaveFileDialog();
+                //dialogBox.InitialDirectory = @"C:\Users\JasonsRazer";
+                //dialogBox.Filter = "CSV Files (*.csv)|*.csv";
+                //dialogBox.DefaultExt = "csv";
+                //dialogBox.ShowDialog();
+                //dialogBox.FileName = filename;
+            }
+        }
+
+
+        //FUNCTION Logs data to file
+        public void logData(int pos, int vel, string path)
+        {
+            List<string> data = new List<string>() { pos.ToString(), vel.ToString(), "" };
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path, true))
+            {
+                using (var csv = new CsvHelper.CsvWriter(file))
+                {
+                    csv.WriteField(data);
+                    csv.NextRecord(); // prepares new data to write (carriage return in CSV)
+                }
+            }
+        }
+
     }
 
 }
