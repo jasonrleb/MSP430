@@ -19,8 +19,10 @@ namespace LAB3_GUI
 
         public int numberOfDataPoints = 0;
 
-        //PLOT Variables
+        //VARIABLES
+        //PLOT
         int plotLimit = 30;
+        //CALCULATE position and velocity calcs
         int cwEncoder = 0;
         int ccwEncoder = 0;
         int escEncoder = 0;
@@ -28,12 +30,17 @@ namespace LAB3_GUI
         int position = 0;
         double velocity = 0.0;
         int previousTotalCount = 0;
-
+        //TRANSFER from serial to queue
+        int cw;
+        int ccw;
+        int esc;
         //DATA LOGGING Variables
         string filename = "";
         string filepath = "";
 
-        ConcurrentQueue<int> encoderQueue = new ConcurrentQueue<int>();
+        ConcurrentQueue<int> queueCW = new ConcurrentQueue<int>();
+        ConcurrentQueue<int> queueCCW = new ConcurrentQueue<int>();
+        ConcurrentQueue<int> queueEsc = new ConcurrentQueue<int>();
 
         public Form1()
         {
@@ -299,42 +306,54 @@ namespace LAB3_GUI
         //Receive Data
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            //int currentByte = 0;
-            //while (serialPort1.IsOpen && serialPort1.BytesToRead != 0)
-            //{
-            //    currentByte = serialPort1.ReadByte();
-            //    numberOfDataPoints++;
-            //    if (chkShowResponse.Checked)
-            //        this.BeginInvoke(new EventHandler(delegate
-            //        {
-            //            txtRawSerial.AppendText(currentByte + ", ");
-            //        }));
-            //}
 
-            //    if (currentByte == 255)
+            //OG CODE
+            //while ((serialPort1.BytesToRead > 0) && serialPort1.IsOpen) //collects data from serial port and stores in queue
+            //{
+            //    try
             //    {
 
+            //        if (serialPort1.ReadByte() == 255)
+            //        {
+            //            cwEncoder = serialPort1.ReadByte();
+            //            ccwEncoder = serialPort1.ReadByte();
+            //            escEncoder = serialPort1.ReadByte();
+
+            //        }
+
+
+            //        serialPort1.DiscardInBuffer(); //clears VS buffer so data collection stops in the background
+            //                                       //BytesToRead = 0;
             //    }
 
+            //    //error handlers
+            //    catch (System.InvalidOperationException) { }
+            //    catch (System.IO.IOException) { }
+
+            //}
+
+            int BytesToRead = serialPort1.BytesToRead;
 
 
 
-            while ((serialPort1.BytesToRead > 0) && serialPort1.IsOpen) //collects data from serial port and stores in queue
+            while (BytesToRead != 0 && serialPort1.IsOpen) //collects data from serial port and stores in queue
             {
                 try
                 {
-
+                    //QUEUES
                     if (serialPort1.ReadByte() == 255)
                     {
-                        cwEncoder = serialPort1.ReadByte();
-                        ccwEncoder = serialPort1.ReadByte();
-                        escEncoder = serialPort1.ReadByte();
-
+                        cw = serialPort1.ReadByte();
+                        queueCW.Enqueue(cw);
+                        ccw = serialPort1.ReadByte();
+                        queueCCW.Enqueue(ccw);
+                        esc = serialPort1.ReadByte();
+                        queueEsc.Enqueue(esc);
                     }
 
 
                     serialPort1.DiscardInBuffer(); //clears VS buffer so data collection stops in the background
-                                                   //BytesToRead = 0;
+                    BytesToRead = 0;
                 }
 
                 //error handlers
@@ -653,70 +672,85 @@ namespace LAB3_GUI
 
         //TIMER: Data Recieve & Buffer / Plotting / Data Logging
         private void Timer2_Tick(object sender, EventArgs e)      {
-            if (chkShowResponse.Checked)
+
+            //SERIAL PORT CHECK
+            if (serialPort1.IsOpen)
             {
-                txtRawSerial.AppendText("255" + ", ");
-                txtRawSerial.AppendText(cwEncoder.ToString() + ", ");
-                txtRawSerial.AppendText(ccwEncoder.ToString() + ", ");
-                txtRawSerial.AppendText(escEncoder.ToString() + ", ");
-            }
 
-            //Handle escape byte conversion of data
-            if(escEncoder == 1)
-            {
-                cwEncoder = 255;
-            }
-            else if(escEncoder == 2)
-            {
-                ccwEncoder = 255;
-            }
-            else if(escEncoder == 3)
-            {
-                cwEncoder = 255;
-                ccwEncoder = 255;
-            }
-
-            //Calculate Position & Velocity
-            previousTotalCount = totalCount;
-            totalCount += ccwEncoder - cwEncoder;
-
-            position = totalCount % 240; //240 counts per rev
-            int positionDisp = Math.Abs(position);
-            tbPosition.Text = Convert.ToString(positionDisp);
-
-            velocity = (totalCount - previousTotalCount) * 95 / 100 * 10 * 60 / 240;    // rpm
-            double velocityDisp = Math.Abs(velocity);
-            tbVelocity.Text = Convert.ToString(velocityDisp);
-
-            if (velocity > 0)
-                tbDirection.Text = "CW";
-            if(velocity < 0)
-                tbDirection.Text = "CCW";
-            if (velocity == 0)
-                tbDirection.Text = "Stopped";
-
-            ctData.Series["RPM"].Points.AddY(velocity);
-            ctData.Series["Position"].Points.AddY(position);
-
-            //PLOT CONTROL
-            if (ctData.Series["RPM"].Points.Count > plotLimit) //Limits plot size, and removes old data
-            {
-                ctData.Series["RPM"].Points.RemoveAt(0);
-                ctData.Series["Position"].Points.RemoveAt(0);
-                ctData.ChartAreas[0].AxisY.Maximum = 240;
-                ctData.ChartAreas[0].AxisY.Minimum = 0;
-            }
-
-
-            //DATA LOGGING
-            if (!(tbFileName.Text == "Enter Output Filename..."))
-            {
-                filename = tbFileName.Text;
-
-                if (CbSaveToFile.Checked)
+                //ACCELL DATA & PLOTTING & AVERAGES
+                while ((queueCW.Count != 0) || (queueCCW.Count != 0) || (queueEsc.Count != 0))
                 {
-                    filepath = "C:\\Users\\JasonsRazer\\Desktop\\" + filename + ".csv";
-                    logData(position, (int)velocity, filepath);
+                    queueCW.TryDequeue(out cwEncoder);
+                    queueCCW.TryDequeue(out ccwEncoder);
+                    queueEsc.TryDequeue(out escEncoder);
+
+
+            if (chkShowResponse.Checked)
+                    {
+                        txtRawSerial.AppendText("255" + ", ");
+                        txtRawSerial.AppendText(cwEncoder.ToString() + ", ");
+                        txtRawSerial.AppendText(ccwEncoder.ToString() + ", ");
+                        txtRawSerial.AppendText(escEncoder.ToString() + ", ");
+                    }
+
+                    //Handle escape byte conversion of data
+                    if (escEncoder == 1)
+                    {
+                        cwEncoder = 255;
+                    }
+                    else if (escEncoder == 2)
+                    {
+                        ccwEncoder = 255;
+                    }
+                    else if (escEncoder == 3)
+                    {
+                        cwEncoder = 255;
+                        ccwEncoder = 255;
+                    }
+
+                    //Calculate Position & Velocity
+                    previousTotalCount = totalCount;
+                    totalCount += ccwEncoder - cwEncoder;
+
+                    position = totalCount % 240; //240 counts per rev
+                    int positionDisp = Math.Abs(position);
+                    tbPosition.Text = Convert.ToString(positionDisp);
+
+                    velocity = (totalCount - previousTotalCount) * (95.0 / 100.0) * 10.0 * (60.0 / 240.0);    // rpm
+                    double velocityDisp = Math.Abs(velocity);
+                    tbVelocity.Text = Convert.ToString(velocityDisp);
+
+                    if (velocity > 0)
+                        tbDirection.Text = "CW";
+                    if (velocity < 0)
+                        tbDirection.Text = "CCW";
+                    if (velocity == 0)
+                        tbDirection.Text = "Stopped";
+
+                    ctData.Series["RPM"].Points.AddY(velocityDisp);
+                    ctData.Series["Position"].Points.AddY(positionDisp);
+
+                    //PLOT CONTROL
+                    if (ctData.Series["Position"].Points.Count > plotLimit) //Limits plot size, and removes old data
+                    {
+                        ctData.Series["RPM"].Points.RemoveAt(0);
+                        ctData.Series["Position"].Points.RemoveAt(0);
+                        ctData.ChartAreas[0].AxisY.Maximum = 500;
+                        ctData.ChartAreas[0].AxisY.Minimum = 0;
+                    }
+
+
+                    //DATA LOGGING
+                    if (!(tbFileName.Text == "Enter Output Filename..."))
+                    {
+                        filename = tbFileName.Text;
+
+                        if (CbSaveToFile.Checked)
+                        {
+                            filepath = "C:\\Users\\JasonsRazer\\Desktop\\" + filename + ".csv";
+                            logData(position, (int)velocity, filepath);
+                        }
+                    }
                 }
             }
         }

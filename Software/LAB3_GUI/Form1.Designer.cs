@@ -110,7 +110,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // btnTransmitToComPort
@@ -257,7 +257,7 @@
             this.btnConnect.Image = ((System.Drawing.Image)(resources.GetObject("btnConnect.Image")));
             this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(133, 55);
+            this.btnConnect.Size = new System.Drawing.Size(133, 45);
             this.btnConnect.Text = "Connect";
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -278,7 +278,7 @@
             // 
             this.txtBaudRate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtBaudRate.Name = "txtBaudRate";
-            this.txtBaudRate.Size = new System.Drawing.Size(180, 62);
+            this.txtBaudRate.Size = new System.Drawing.Size(180, 52);
             this.txtBaudRate.Text = "9600";
             // 
             // chkByte5
@@ -297,13 +297,13 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(159, 55);
+            this.toolStripLabel1.Size = new System.Drawing.Size(159, 45);
             this.toolStripLabel1.Text = "Baud Rate:";
             // 
             // cmbComPort
             // 
             this.cmbComPort.Name = "cmbComPort";
-            this.cmbComPort.Size = new System.Drawing.Size(314, 62);
+            this.cmbComPort.Size = new System.Drawing.Size(314, 52);
             this.cmbComPort.DropDown += new System.EventHandler(this.cmbComPort_DropDown);
             // 
             // label1
@@ -328,7 +328,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 4, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(2232, 62);
+            this.toolStrip1.Size = new System.Drawing.Size(2232, 52);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
