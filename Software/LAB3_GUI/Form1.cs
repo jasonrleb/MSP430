@@ -678,7 +678,7 @@ namespace LAB3_GUI
             {
 
                 //ACCELL DATA & PLOTTING & AVERAGES
-                while ((queueCW.Count != 0) || (queueCCW.Count != 0) || (queueEsc.Count != 0))
+                while ((queueCW.Count > 3) && (queueCCW.Count > 3) && (queueEsc.Count > 3))
                 {
                     queueCW.TryDequeue(out cwEncoder);
                     queueCCW.TryDequeue(out ccwEncoder);
@@ -712,11 +712,11 @@ namespace LAB3_GUI
                     previousTotalCount = totalCount;
                     totalCount += ccwEncoder - cwEncoder;
 
-                    position = totalCount % 240; //240 counts per rev
+                    position = totalCount % 400; //240 counts per rev
                     int positionDisp = Math.Abs(position);
                     tbPosition.Text = Convert.ToString(positionDisp);
 
-                    velocity = (totalCount - previousTotalCount) * (95.0 / 100.0) * 10.0 * (60.0 / 240.0);    // rpm
+                    velocity = (totalCount - previousTotalCount) * 60.0 * 122.0 / 400.0; // 60 to rps, 122 for sampling freq, 400 for counts per rev // OLD CODE: 95.0 / 100.0) * 10.0 * (60.0 / 240.0);    // rpm
                     double velocityDisp = Math.Abs(velocity);
                     tbVelocity.Text = Convert.ToString(velocityDisp);
 
@@ -735,7 +735,7 @@ namespace LAB3_GUI
                     {
                         ctData.Series["RPM"].Points.RemoveAt(0);
                         ctData.Series["Position"].Points.RemoveAt(0);
-                        ctData.ChartAreas[0].AxisY.Maximum = 500;
+                        ctData.ChartAreas[0].AxisY.Maximum = 5000;
                         ctData.ChartAreas[0].AxisY.Minimum = 0;
                     }
 
