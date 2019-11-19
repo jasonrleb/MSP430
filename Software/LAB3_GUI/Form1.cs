@@ -307,31 +307,6 @@ namespace LAB3_GUI
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
 
-            //OG CODE
-            //while ((serialPort1.BytesToRead > 0) && serialPort1.IsOpen) //collects data from serial port and stores in queue
-            //{
-            //    try
-            //    {
-
-            //        if (serialPort1.ReadByte() == 255)
-            //        {
-            //            cwEncoder = serialPort1.ReadByte();
-            //            ccwEncoder = serialPort1.ReadByte();
-            //            escEncoder = serialPort1.ReadByte();
-
-            //        }
-
-
-            //        serialPort1.DiscardInBuffer(); //clears VS buffer so data collection stops in the background
-            //                                       //BytesToRead = 0;
-            //    }
-
-            //    //error handlers
-            //    catch (System.InvalidOperationException) { }
-            //    catch (System.IO.IOException) { }
-
-            //}
-
             int BytesToRead = serialPort1.BytesToRead;
 
 
@@ -781,12 +756,6 @@ namespace LAB3_GUI
             else
             {
                 MessageBox.Show("File saved to Desktop", "SAVE", 0);
-                //SaveFileDialog dialogBox = new SaveFileDialog();
-                //dialogBox.InitialDirectory = @"C:\Users\JasonsRazer";
-                //dialogBox.Filter = "CSV Files (*.csv)|*.csv";
-                //dialogBox.DefaultExt = "csv";
-                //dialogBox.ShowDialog();
-                //dialogBox.FileName = filename;
             }
         }
 
@@ -809,75 +778,4 @@ namespace LAB3_GUI
     }
 
 }
-
-
-
-
-        // Average all new data from serial buffer accumulated w/i time interval
-
-//        private void processData()
-//        {
-//            var objPositionSeries = chartPosition.Series["Position"];
-//            var objVelocitySeries = chartVelocity.Series["Velocity"];
-
-//            while (dataQueue.Count > 0)
-//            {
-//                int data;
-//                dataQueue.TryDequeue(out data);
-//                if (data == 255 && count == 0)
-//                {
-//                    ++count;
-//                }
-//                else if (count == 1)
-//                {
-//                    ref1 = data;
-//                    ++count;
-//                }
-//                else if (count == 2)
-//                {
-//                    ref2 = data;
-//                    ++count;
-//                }
-//                else if (count == 3)
-//                {
-//                    if (data == 1) { ref1 = 255; }
-//                    else if (data == 2)
-//                    {
-//                        ref2 = 255;
-//                    }
-//                    else if (data == 3)
-//                    {
-//                        ref1 = 255;
-//                        ref2 = 255;
-//                    }
-//                    count = 0;
-//                    previousTotalCount = totalCount;
-//                    previousPosition = position;
-
-//                    totalCount += ref1 - ref2;
-//                    position = totalCount % 400;         // encoder counts per revolution
-//                    velocity = (totalCount - previousTotalCount) * 45.75 * 60 / 100;    // rpm
-//                    if (velocity > 0)
-//                        txtDirection.Text = "CW";
-//                    else
-//                        txtDirection.Text = "CCW";
-
-//                    objPositionSeries.Points.AddY(position);
-//                    objVelocitySeries.Points.AddY(velocity);
-
-//                    if (objPositionSeries.Points.Count() > maxPlotWidth)
-//                    {
-//                        objPositionSeries.Points.RemoveAt(0);
-//                        objVelocitySeries.Points.RemoveAt(0);
-//                    }
-
-//                    // Display it on the text boxes
-//                    txtPosition.Text = Convert.ToString(position);
-//                    txtRPM.Text = Convert.ToString(velocity);
-//                    txtHz.Text = Convert.ToString(velocity / 60);
-//                }
-//            }
-//        }
-//    }
-//}
 
